@@ -25,6 +25,7 @@ def read_file(file_path):
     return results
 
 file_path = os.path.join(os.path.dirname(__file__), 'rainan.txt')
+file_path = os.path.join(os.path.dirname(__file__), 'r2011-2020.txt')
 data = read_file(file_path)
 
 fig, ax = plt.subplots(figsize=(8, 5))
