@@ -15,11 +15,16 @@ to facilitate further assessments.
 
 @author: slee and dirvine
 """
+
+# import numpy library and os library
+import os
+import numpy as np
+
 # ===== Step 1: Set up and run the User command section =======================
 #%%
 #=========================  User commands  ===========================
-datafolder = r'C:\INSERT_FILE_PATH\CMBEAR\InputData' 
-outfolder  = r'C:\INSERT_FILE_PATH\Python\CMBEAR\OutputFiles' 
+datafolder = os.path.join(os.path.dirname(__file__), '..', 'InputData') 
+outfolder  = os.path.join(os.path.dirname(__file__), '..', 'OutputFiles')
 datafile   = 'Chloride_dataset_20230907_state_id.csv' # name of the excel workboook with the data
 sheetname  = 'insert_sheet_name' # name of the excel worksheet containing the data if applicable              
 print('User inputs read')
@@ -27,9 +32,6 @@ print('User inputs read')
 # ===== Step 2: Set up and run this section to set up the map =================
 #%%
 
-# import numpy library and os library
-import os
-import numpy as np
 
 #=============== files===================
 Dmean      = 'cl_deposition_mean.txt' # file name of file containing mean chloride depostion map

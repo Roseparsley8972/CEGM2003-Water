@@ -25,8 +25,8 @@ import random
 from datetime import datetime
 #=============================================================================
 #%% Data Preparation
-InputData = r'C:\INSERT_FILE_PATH\RF\InputData'
-OutputFiles = r'C:\INSERT_FILE_PATH\RF\OutputFiles'
+InputData = os.path.join(os.path.dirname(__file__), '..', 'InputData')
+OutputFiles = os.path.join(os.path.dirname(__file__), '..', 'OutputFiles')
 # User settings
 usedatasplit = 'yes' # Yes to Split dataset into training and testing sets
 t_size = 0.3 #specify 30% data for testing/validation purposes
