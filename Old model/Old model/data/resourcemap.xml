@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:citoterms="http://purl.org/spar/cito/"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:ore="http://www.openarchives.org/ore/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs1="http://www.w3.org/2001/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://www.openarchives.org/ore/terms/ResourceMap">
+    <rdfs1:isDefinedBy>http://www.openarchives.org/ore/terms/</rdfs1:isDefinedBy>
+    <rdfs1:label>ResourceMap</rdfs1:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Chloride_dataset_20230907_state_id_out.csv">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/csv</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/RF/Code/RF_recharge_Australia_v1.0.py">
+    <dc:format>text/x-python</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_mean.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Australia_raster_0p05_r50_resmap.xml#aggregation">
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/GeographicRasterAggregation"/>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/RF/InputData/Australia_grid_0p05_data.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation">
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Supporting_information_20240306.docx"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemetadata.xml"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_sd.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r05_resmap.xml#aggregation"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Australia_grid_0p05_data.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r50_resmap.xml#aggregation"/>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/rain.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/RF/InputData/dat07_u.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/PET.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/aridity.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/OutputFiles/Chloride_dataset_20230907_state_id_out.csv"/>
+    <dc:title>A high-resolution map of diffuse groundwater recharge rates for Australia</dc:title>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Australia_raster_0p05_r50_resmap.xml#aggregation"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/OutputFiles/Clgw_post_qa.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r_p_50_resmap.xml#aggregation"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/dat07_u.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Chloride_dataset_20230907_state_id.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/RF/Code/RF_recharge_Australia_v1.0.py"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/RF/InputData/Australia_grid_0p05_data.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Clgw_final.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r_p_95.txt"/>
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/CompositeResource"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r95.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Chloride_dataset_20230907_state_id_out.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/dataset_codes.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r_p_05_resmap.xml#aggregation"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r95_resmap.xml#aggregation"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Clgw_post_qa.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/OutputFiles/Clgw_final.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r05.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_skew.txt"/>
+        <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r_p_95_resmap.xml#aggregation"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/model_predictions_aus_8par_grp6_250trees_mf0.33_10fold_out.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_5th.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/RF/OutputFiles/model_predictions_aus_8par_grp6_250trees_mf0.33_10fold_out.csv"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_95th.txt"/>
+    <citoterms:isDocumentedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemetadata.xml</citoterms:isDocumentedBy>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/Code/CMBEAR2_v1.0.py"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/RC.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r_p_50.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_mean.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r50.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r_p_05.txt"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/Chloride_dataset_20230907_state_id.csv"/>
+    <ore:isDescribedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml</ore:isDescribedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/OutputFiles/Chloride_dataset_20230907_state_id_out.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Australia_grid_0p05_data.csv">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/csv</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_skew.txt">
+    <dc:format>text/plain</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/rain.txt">
+    <dc:format>text/plain</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/Code/CMBEAR2_v1.0.py">
+    <dc:format>text/x-python</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://foresite-toolkit.googlecode.com/#pythonAgent">
+    <foaf:mbox>foresite@googlegroups.com</foaf:mbox>
+    <foaf:name>Foresite Toolkit (Python)</foaf:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r95_resmap.xml#aggregation">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/GeographicRasterAggregation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r_p_95_resmap.xml#aggregation">
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/GeographicRasterAggregation"/>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Chloride_dataset_20230907_state_id.csv">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/csv</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Clgw_post_qa.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemetadata.xml">
+    <citoterms:documents>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</citoterms:documents>
+    <dc:title>Dublin Core science metadata document describing the HydroShare resource</dc:title>
+    <dc:format>application/rdf+xml</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_95th.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/dat07_u.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r05.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml">
+    <dc:creator rdf:resource="http://foresite-toolkit.googlecode.com/#pythonAgent"/>
+    <dcterms:created>2024-05-07T23:10:24Z</dcterms:created>
+    <dc:identifier>5e7b8bfcc1514680902f8ff43cc254b8</dc:identifier>
+    <dc:format>application/rdf+xml</dc:format>
+    <dcterms:modified>2024-05-07T23:10:24Z</dcterms:modified>
+    <ore:describes rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation"/>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/ResourceMap"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r_p_95.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r50.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r_p_50_resmap.xml#aggregation">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/GeographicRasterAggregation"/>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r_p_50.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/aridity.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/Chloride_dataset_20230907_state_id.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r05_resmap.xml#aggregation">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/GeographicRasterAggregation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/model_predictions_aus_8par_grp6_250trees_mf0.33_10fold_out.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r_p_05.txt">
+    <dc:format>text/plain</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/aus_0p05_r95.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Supporting_information_20240306.docx">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/PET.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/terms/CompositeResource">
+    <rdfs1:isDefinedBy>http://www.hydroshare.org/terms</rdfs1:isDefinedBy>
+    <rdfs1:label>Composite Resource</rdfs1:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/RF/OutputFiles/model_predictions_aus_8par_grp6_250trees_mf0.33_10fold_out.csv">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/csv</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/RF/InputData/dat07_u.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/OutputFiles/Clgw_final.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r_p_05_resmap.xml#aggregation">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/GeographicRasterAggregation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Gridded%20map%20output%20files/Australia_raster_0p05_r50_resmap.xml#aggregation">
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/GeographicRasterAggregation"/>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_5th.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/RC.txt">
+    <dc:format>text/plain</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/Clgw_final.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/OutputFiles/Clgw_post_qa.csv">
+    <dc:format>text/csv</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.openarchives.org/ore/terms/Aggregation">
+    <rdfs1:label>Aggregation</rdfs1:label>
+    <rdfs1:isDefinedBy>http://www.openarchives.org/ore/terms/</rdfs1:isDefinedBy>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Datasets/dataset_codes.txt">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/plain</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting%20information/Python%20scripts/CMBEAR/InputData/cl_deposition_sd.txt">
+    <dc:format>text/plain</dc:format>
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+  </rdf:Description>
+</rdf:RDF>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:hsterms="https://www.hydroshare.org/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+>
+  <hsterms:GeographicRasterAggregation rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8/data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_05_resmap.xml#aggregation">
+    <dc:type rdf:resource="https://www.hydroshare.org/terms/GeographicRasterAggregation"/>
+    <dc:language>eng</dc:language>
+    <dc:coverage>
+      <dcterms:box>
+        <rdf:value>northlimit=-9.974999999999994; southlimit=-44.025; eastlimit=154.025; westlimit=111.975; units=Decimal degrees; projection=WGS 84 EPSG:4326</rdf:value>
+      </dcterms:box>
+    </dc:coverage>
+    <hsterms:CellInformation>
+      <rdf:Description>
+        <hsterms:cellSizeXValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.05</hsterms:cellSizeXValue>
+        <hsterms:cellDataType>Float32</hsterms:cellDataType>
+        <hsterms:cellSizeYValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.05</hsterms:cellSizeYValue>
+        <hsterms:rows rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">681</hsterms:rows>
+        <hsterms:columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">841</hsterms:columns>
+        <hsterms:name>Australia_raster_0p05_r_p_05.vrt</hsterms:name>
+      </rdf:Description>
+    </hsterms:CellInformation>
+    <dc:title>Australia_raster_0p05_r_p_05</dc:title>
+    <dc:rights>
+      <rdf:Description>
+        <hsterms:rightsStatement>This resource is shared under the Creative Commons Attribution-ShareAlike CC BY-SA.</hsterms:rightsStatement>
+        <hsterms:URL rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"/>
+      </rdf:Description>
+    </dc:rights>
+    <hsterms:spatialReference>
+      <hsterms:box>
+        <rdf:value>northlimit=-9.974999999999994; southlimit=-44.025; eastlimit=154.025; westlimit=111.975; projection=WGS 84; units=degree; projection_string=GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433],AUTHORITY["EPSG","4326"]]; datum=WGS_1984</rdf:value>
+      </hsterms:box>
+    </hsterms:spatialReference>
+    <hsterms:BandInformation>
+      <rdf:Description>
+        <hsterms:minimumValue>5.999999848427251e-05</hsterms:minimumValue>
+        <hsterms:variableName></hsterms:variableName>
+        <hsterms:noDataValue>-999.0</hsterms:noDataValue>
+        <hsterms:variableUnit></hsterms:variableUnit>
+        <hsterms:name>Band_1</hsterms:name>
+        <hsterms:maximumValue>0.25213000178337097</hsterms:maximumValue>
+      </rdf:Description>
+    </hsterms:BandInformation>
+  </hsterms:GeographicRasterAggregation>
+  <rdf:Description rdf:about="http://www.hydroshare.org/terms/GeographicRasterAggregation">
+    <rdfs:label>Geographic Raster Content: A geographic grid represented by a virtual raster tile (.vrt) file and one or more geotiff (.tif) files</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="https://www.hydroshare.org/terms/"/>
+  </rdf:Description>
+</rdf:RDF>

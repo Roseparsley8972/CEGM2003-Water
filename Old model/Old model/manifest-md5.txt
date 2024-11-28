@@ -1,0 +1,63 @@
+eb70b1a4a3bf6996b0e69885bcefbb9f    data/resourcemap.xml
+58a2c99547dce6c66e2e17f260adfd8e    data/resourcemetadata.xml
+80eff10b2bd81b4c9405e349d5f58204    data/contents/Australia_raster_0p05_r50_meta.xml
+f9a8c2dcbce27f7bab8a507dd388379b    data/contents/Australia_raster_0p05_r50_resmap.xml
+62a148b66ea116ba0c68c38771ee2449    data/contents/Australia_raster_0p05_r50.tif
+90a9f6b5aa39bed7d4d996ff2d0ab2bd    data/contents/Australia_raster_0p05_r50.vrt
+1e0334d1c5d35c00abb0dc219251a560    data/contents/Supporting information/Supporting_information_20240306.docx
+53ca10395b2961ef5546291e96832427    data/contents/Supporting information/Datasets/Australia_grid_0p05_data.csv
+37e9420db028047203bf3f70186cd92d    data/contents/Supporting information/Datasets/Chloride_dataset_20230907_state_id.csv
+5054470112cf487adb8cb8cd0811d7fc    data/contents/Supporting information/Datasets/Chloride_dataset_20230907_state_id_out.csv
+8d6357f648f7d438665b0c659ef3541c    data/contents/Supporting information/Datasets/Clgw_final.csv
+16f0b512f753553e35c9ff476ab72ee8    data/contents/Supporting information/Datasets/Clgw_post_qa.csv
+269d8090ea1807ad936247ce6d3080a8    data/contents/Supporting information/Datasets/dat07_u.csv
+96a9a36894c22c8c0d823f4961b1fc9d    data/contents/Supporting information/Datasets/dataset_codes.txt
+a91f0bec124ac1dce7b06be0b151e6ef    data/contents/Supporting information/Datasets/model_predictions_aus_8par_grp6_250trees_mf0.33_10fold_out.csv
+8e2f3ac9e68612d8e1b9d16a3a0ec8c6    data/contents/Supporting information/Gridded map output files/aus_0p05_r05.txt
+27a8ae80be3f3fb27f8aab47d97b9658    data/contents/Supporting information/Gridded map output files/aus_0p05_r50.txt
+55238a68e84f0798e82af5d916664663    data/contents/Supporting information/Gridded map output files/aus_0p05_r95.txt
+1a48d938503838e007a223bb71eea997    data/contents/Supporting information/Gridded map output files/aus_0p05_r_p_05.txt
+5f7375bbbfb6a419da912466417f2efb    data/contents/Supporting information/Gridded map output files/aus_0p05_r_p_50.txt
+b7a12c345a8ab6e5826711e47bd6987a    data/contents/Supporting information/Gridded map output files/aus_0p05_r_p_95.txt
+26ca306b180bd6f760b2ee4629d6aaeb    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r05_meta.xml
+541c3c9e28246adeb9a1e206962966e8    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r05_resmap.xml
+15833898019ad69c446eb493f9b4acd7    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r05.tif
+81b408cb97f7c8763fc5b12ff302c6d7    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r05.vrt
+9843dcd2e999342997953947a0fda6e2    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r50_meta.xml
+9de11b3320f65d91dd18fffee0235f29    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r50_resmap.xml
+62a148b66ea116ba0c68c38771ee2449    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r50.tif
+90a9f6b5aa39bed7d4d996ff2d0ab2bd    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r50.vrt
+2f5637f347eaf6ff685f39954818efef    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r95_meta.xml
+4385919752ef6cf24a88dbe7de336bd2    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r95_resmap.xml
+a6e68c55a01dea17061709a69d2b83ec    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r95.tif
+937925206104d399329154eccc037077    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r95.vrt
+dd7e71c16fd15b866feb1a65575dbee1    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_05_meta.xml
+9c61be55b6b53d7095b1268882a3a0dc    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_05_resmap.xml
+289ea0eb8c924bd49666278dacc2af54    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_05.tif
+e8ded915f43b37c679e562a25e0fd6d1    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_05.vrt
+733cd05689af1b0195e9920cd719a847    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_50_meta.xml
+4c820fabb730dd598f5373b3da99f124    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_50_resmap.xml
+5f8510f7172aae0b2d7d9c064ed34045    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_50.tif
+b8ef9b2b27c4715969ce05f46583041f    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_50.vrt
+8b79e80da4b0162e4de33e146b2dd3b7    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_95_meta.xml
+eacc9368adc3a0809bcc0a5fa1844c17    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_95_resmap.xml
+8f47c24439fb3abd0d7dc21bb0c0d9ee    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_95.tif
+2cfd13ef8392f0f0be4a838a2a94d488    data/contents/Supporting information/Gridded map output files/Australia_raster_0p05_r_p_95.vrt
+fe6371a2f4c5ca42f14163d4bcfec0cf    data/contents/Supporting information/Python scripts/CMBEAR/Code/CMBEAR2_v1.0.py
+2571bdb7df27c0adfbb4ef3128134077    data/contents/Supporting information/Python scripts/CMBEAR/InputData/aridity.txt
+37e9420db028047203bf3f70186cd92d    data/contents/Supporting information/Python scripts/CMBEAR/InputData/Chloride_dataset_20230907_state_id.csv
+dd2217423ea772afab8d0b5a271aab17    data/contents/Supporting information/Python scripts/CMBEAR/InputData/cl_deposition_5th.txt
+a4376f7e668d3cfb99978766e8e82319    data/contents/Supporting information/Python scripts/CMBEAR/InputData/cl_deposition_95th.txt
+510075625e668ba4d89d90489123769f    data/contents/Supporting information/Python scripts/CMBEAR/InputData/cl_deposition_mean.txt
+1361b0089f005c462e62486e5301c38a    data/contents/Supporting information/Python scripts/CMBEAR/InputData/cl_deposition_sd.txt
+5c4eca7635ccc15f8ed16fcd64e92276    data/contents/Supporting information/Python scripts/CMBEAR/InputData/cl_deposition_skew.txt
+5c5b2ad8759eade158a4be33b860b661    data/contents/Supporting information/Python scripts/CMBEAR/InputData/PET.txt
+0d18d2b4b53bb0e1ee26382a260a1072    data/contents/Supporting information/Python scripts/CMBEAR/InputData/rain.txt
+12b55e3000d8be8a886d333b7c2d7947    data/contents/Supporting information/Python scripts/CMBEAR/InputData/RC.txt
+5054470112cf487adb8cb8cd0811d7fc    data/contents/Supporting information/Python scripts/CMBEAR/OutputFiles/Chloride_dataset_20230907_state_id_out.csv
+8d6357f648f7d438665b0c659ef3541c    data/contents/Supporting information/Python scripts/CMBEAR/OutputFiles/Clgw_final.csv
+16f0b512f753553e35c9ff476ab72ee8    data/contents/Supporting information/Python scripts/CMBEAR/OutputFiles/Clgw_post_qa.csv
+ff0da437298ea5725a9b75a57790fb46    data/contents/Supporting information/Python scripts/RF/Code/RF_recharge_Australia_v1.0.py
+53ca10395b2961ef5546291e96832427    data/contents/Supporting information/Python scripts/RF/InputData/Australia_grid_0p05_data.csv
+269d8090ea1807ad936247ce6d3080a8    data/contents/Supporting information/Python scripts/RF/InputData/dat07_u.csv
+a91f0bec124ac1dce7b06be0b151e6ef    data/contents/Supporting information/Python scripts/RF/OutputFiles/model_predictions_aus_8par_grp6_250trees_mf0.33_10fold_out.csv

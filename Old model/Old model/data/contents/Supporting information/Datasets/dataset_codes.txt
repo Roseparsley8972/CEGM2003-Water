@@ -1,0 +1,149 @@
+Explanation of codes and categorical values in Stephen Lee et al. datasets.
+
+source	Data reference
+1	Geoscience Australia Portal (2022)
+2	Gray et al. (2019)
+3	Broad (2020)
+5	VVG (2022)
+7	Tickell, pers. comm. (12 April 2022)
+
+Bore NGIS construction type from Australian Groundwater Explorer (2022)
+construction_type	Definition	
+INLT		inlet	
+BSC		bridge slotted casing
+LVC		louvred casing
+SLC		slotted casing
+PFC		perforated casing
+PRL		porous lining
+PNP		punched plate
+WWS		wire wound screen
+WWSR		wire wound screen, round wire
+WWST		wire wound screen, triangular wire
+OPEN		open hole
+MESH		mesh
+
+
+state_idState
+1	New South Wales
+2	Victoria
+3	Queensland
+4	South Australia
+5	Western Australia
+6	Tasmania
+7	Northern Territory
+8	Australian Capital Territory
+
+Surface Geology 1:1M Scale Modified from Raymond et al. (2012)
+my_lith_num	my_lith
+1	igneous
+2	igneous intrusive
+3	igneous volcanic
+4	metamorphic
+5	meta-igneous
+6	meta-igneous intrusive
+7	meta-igneous volcanic
+8	metasedimentary
+9	metasedimentary carbonate
+10	metasedimentary non-carbonate
+11	sedimentary
+12	sedimentary carbonate
+13	sedimentary non-carbonate
+14	regolith
+15	aeolian
+16	alluvium
+17	colluvium
+18	lacustrine
+19	unknown
+
+Köppen Geiger Climate (Beck et al., 2018)
+koppen_geiger	Symbol	Climate description	RGB colours
+    1:  Af   Tropical, rainforest                  [0 0 255]
+    2:  Am   Tropical, monsoon                     [0 120 255]
+    3:  Aw   Tropical, savannah                    [70 170 250]
+    4:  BWh  Arid, desert, hot                     [255 0 0]
+    5:  BWk  Arid, desert, cold                    [255 150 150]
+    6:  BSh  Arid, steppe, hot                     [245 165 0]
+    7:  BSk  Arid, steppe, cold                    [255 220 100]
+    8:  Csa  Temperate, dry summer, hot summer     [255 255 0]
+    9:  Csb  Temperate, dry summer, warm summer    [200 200 0]
+    10: Csc  Temperate, dry summer, cold summer    [150 150 0]
+    11: Cwa  Temperate, dry winter, hot summer     [150 255 150]
+    12: Cwb  Temperate, dry winter, warm summer    [100 200 100]
+    13: Cwc  Temperate, dry winter, cold summer    [50 150 50]
+    14: Cfa  Temperate, no dry season, hot summer  [200 255 80]
+    15: Cfb  Temperate, no dry season, warm summer [100 255 80]
+    16: Cfc  Temperate, no dry season, cold summer [50 200 0]
+    17: Dsa  Cold, dry summer, hot summer          [255 0 255]
+    18: Dsb  Cold, dry summer, warm summer         [200 0 200]
+    19: Dsc  Cold, dry summer, cold summer         [150 50 150]
+    20: Dsd  Cold, dry summer, very cold winter    [150 100 150]
+    21: Dwa  Cold, dry winter, hot summer          [170 175 255]
+    22: Dwb  Cold, dry winter, warm summer         [90 120 220]
+    23: Dwc  Cold, dry winter, cold summer         [75 80 180]
+    24: Dwd  Cold, dry winter, very cold winter    [50 0 135]
+    25: Dfa  Cold, no dry season, hot summer       [0 255 255]
+    26: Dfb  Cold, no dry season, warm summer      [55 200 255]
+    27: Dfc  Cold, no dry season, cold summer      [0 125 125]
+    28: Dfd  Cold, no dry season, very cold winter [0 70 95]
+    29: ET   Polar, tundra                         [178 178 178]
+    30: EF   Polar, frost                          [102 102 102]
+
+Rainfall seasonality (Bureau of Meteorology, 2017)
+rainfall_seasonality
+Summer Dominant
+1   summer dominant (more than 1200)
+2   summer dominant (650 - 1200)
+3   summer dominant (350 - 650)
+
+Arid
+4   arid   (less than 350)
+
+Summer
+5   summer (more than 1200)
+6   summer (650 - 1200)
+7   summer (350 - 650)
+
+Uniform
+9   uniform (more than 800)
+10  uniform (500 - 800)
+11  uniform (250 - 500)
+
+Winter Dominant
+13  winter dominant (more than 800)
+14  winter dominant (500 - 800)
+15  winter dominant (250 - 500)
+
+Winter
+17  winter  (more than 800)
+18  winter  (500 - 800)
+19  winter  (250 - 500)
+
+Soil Class (CSIRO, 2023)
+soil_class	ASC_ORD		ASC_ORDER_NAME
+1	AN	Anthroposols
+2	CA	Calcarosols
+3	CH	Chromosols
+4	DE	Dermosols
+5	FE	Ferrosols
+6	HY	Hydrosols
+7	KA	Kandosols
+8	KU	Kurosols
+9	OR	Organosols
+10	PO	Podosols
+11	RU	Rudosols
+12	SO	Sodosols
+13	TE	Tenosols
+14	VE	Vertosols
+
+Vegetation category modified from Major vegetation groups present (extant) from the NVIS (Department of Climate Change, Energy, the Environment and Water, 2020)
+Categorised based on Eamus et al. (2016)
+vegex_cat	Group
+1	Forest
+2	Savanna
+3	Mulga
+4	Shrubland
+5	Grassland
+6	Cleared/non-native
+7	Aquatic
+8	Naturally bare
+9	Other/unknown

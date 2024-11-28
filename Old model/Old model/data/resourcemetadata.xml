@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:hsterms="https://www.hydroshare.org/terms/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <hsterms:CompositeResource rdf:about="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8">
+    <dc:subject>Python</dc:subject>
+    <dc:description>
+      <rdf:Description>
+        <dcterms:abstract>Estimating groundwater recharge rates is vitally important to understanding and managing groundwater. Numerous studies have used collated recharge datasets to understand and project regional or global-scale recharge rates. However, a key challenge stems from the inherent variability in recharge estimation methods utilised across these collations. Recharge estimation methods each carry distinct assumptions, address different recharge components, and operate over varied temporal scales. To address these challenges, this study uses a comprehensive dataset of over 200,000 groundwater chloride measurements to estimate groundwater recharge rates using the chloride mass balance (CMB) method throughout Australia. Recharge rates were produced stochastically using the groundwater chloride dataset and supplemented by gridded chloride deposition, runoff, and precipitation datasets within a Python framework. After QA/QC and data filtering, the resulting recharge rates and 17 spatial datasets are integrated into a random forest regression algorithm, generating a high-resolution (0.05°) model of recharge rates across Australia. This study presents a robust and automated approach to estimate recharge using the CMB method, offering a unified model based on a single estimation method. The resulting datasets, the Python script for recharge rate calculation, and the spatial recharge models collectively provide valuable insights for water resources management across the vast and dry Australian continent and similar approaches can be applied globally. If you use the datasets, gridded map output files, or Python scripts, we would appreciate it if you could cite the associated publication in Hydrology and Earth System Sciences here: https://hess.copernicus.org/articles/28/1771/2024/. For any further information, please do not hesitate to contact Stephen Lee on stephen.lee@cdu.edu.au.</dcterms:abstract>
+      </rdf:Description>
+    </dc:description>
+    <dc:subject>Hydrogeology</dc:subject>
+    <dc:coverage>
+      <dcterms:box>
+        <rdf:value>northlimit=-9.975; southlimit=-44.025; eastlimit=154.025; westlimit=111.975; projection=WGS 84 EPSG:4326; units=Decimal degrees</rdf:value>
+      </dcterms:box>
+    </dc:coverage>
+    <dc:rights>
+      <rdf:Description>
+        <hsterms:URL rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"/>
+        <hsterms:rightsStatement>This resource is shared under the Creative Commons Attribution-ShareAlike CC BY-SA.</hsterms:rightsStatement>
+      </rdf:Description>
+    </dc:rights>
+    <dc:subject>Groundwater recharge</dc:subject>
+    <dc:title>A high-resolution map of diffuse groundwater recharge rates for Australia</dc:title>
+    <dc:identifier>
+      <rdf:Description>
+        <hsterms:hydroShareIdentifier rdf:resource="http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8"/>
+      </rdf:Description>
+    </dc:identifier>
+    <dc:subject>Diffuse recharge</dc:subject>
+    <dc:creator>
+      <rdf:Description>
+        <hsterms:email>stephen.lee@cdu.edu.au</hsterms:email>
+        <hsterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25129</hsterms:description>
+        <hsterms:name>Lee, Stephen</hsterms:name>
+        <hsterms:hydroshare_user_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25129</hsterms:hydroshare_user_id>
+        <hsterms:organization>Charles Darwin University</hsterms:organization>
+        <hsterms:creatorOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hsterms:creatorOrder>
+      </rdf:Description>
+    </dc:creator>
+    <dc:date>
+      <dcterms:created>
+        <rdf:value>2024-03-06T12:36:40.716838+00:00</rdf:value>
+      </dcterms:created>
+    </dc:date>
+    <dc:subject>Machine learning</dc:subject>
+    <dc:subject>Random forest</dc:subject>
+    <dc:language>eng</dc:language>
+    <hsterms:awardInfo>
+      <rdf:Description>
+        <hsterms:awardNumber>AT.7.2223014</hsterms:awardNumber>
+        <hsterms:awardTitle>Water Security Program</hsterms:awardTitle>
+        <hsterms:fundingAgencyName>Cooperative Research Centre for Developing Northern Australia</hsterms:fundingAgencyName>
+        <hsterms:fundingAgencyURL rdf:resource="https://www.crcna.com.au/news/new-research-partnership-champion-water-security-northern-australia"/>
+      </rdf:Description>
+    </hsterms:awardInfo>
+    <dc:relation>
+      <rdf:Description>
+        <dcterms:isVersionOf>Lee, S. (2024). A high-resolution map of diffuse groundwater recharge rates for Australia, HydroShare, http://www.hydroshare.org/resource/a4b85253ed3241658548e23d5ef69c9b</dcterms:isVersionOf>
+      </rdf:Description>
+    </dc:relation>
+    <dc:subject>Chloride mass balance</dc:subject>
+    <dc:subject>Recharge rates</dc:subject>
+    <dcterms:bibliographicCitation>Lee, S. (2024). A high-resolution map of diffuse groundwater recharge rates for Australia, HydroShare, http://www.hydroshare.org/resource/5e7b8bfcc1514680902f8ff43cc254b8</dcterms:bibliographicCitation>
+    <dc:date>
+      <dcterms:modified>
+        <rdf:value>2024-04-29T05:43:39.231033+00:00</rdf:value>
+      </dcterms:modified>
+    </dc:date>
+    <dc:type>
+      <rdf:Description rdf:about="http://www.hydroshare.org/terms/CompositeResource">
+        <rdfs:label>Composite Resource</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://www.hydroshare.org/terms/"/>
+      </rdf:Description>
+    </dc:type>
+    <dc:subject>Australia</dc:subject>
+  </hsterms:CompositeResource>
+</rdf:RDF>
