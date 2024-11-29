@@ -26,10 +26,10 @@ def read_file(file_path):
     
     return results
 
-file_path = os.path.join(os.path.dirname(__file__), 'rainan.txt')
+file_path = os.path.join(os.path.dirname(__file__), 'data', 'rainan.txt')
 data = read_file(file_path)
 
-file_path = os.path.join(os.path.dirname(__file__), 'Australia_grid_0p05_data.csv')
+file_path = os.path.join(os.path.dirname(__file__), 'data', 'Australia_grid_0p05_data.csv')
 old_data = pd.read_csv(file_path)
 
 # Merge data based on lat and lon
