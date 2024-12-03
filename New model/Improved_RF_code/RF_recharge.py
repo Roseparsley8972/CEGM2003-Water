@@ -66,7 +66,7 @@ def run_rf_model(t_size=0.3, trees=250, max_splits=18, max_features=0.33, min_sa
 
         y_pred_valid.to_csv(f'model_validation_predictions_errors_50_{trees}trees_mf{max_features}_{k_num}fold_out.csv', index=False)
         y_pred_aus.to_csv(f'model_predictions_aus_{trees}trees_mf{max_features}_{k_num}fold_out.csv', index=False)
-        print(f'Model took: {(datetime.now() - start_time).total_seconds()/60:.2f} minutes to run')
+    print(f'Model took: {(datetime.now() - start_time).total_seconds()/60:.2f} minutes to run')
 
     # Save the trained model to a file if using test data
     if test_data:
