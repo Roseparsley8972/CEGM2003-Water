@@ -12,7 +12,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.experimental import enable_halving_search_cv # noqa
 from sklearn.model_selection import HalvingGridSearchCV
 
-def run_xgb_model(t_size=0.3, n_estimators=350, max_depth=10, learning_rate=0.01, min_child_weight=5, subsample=0.7, colsample_bytree=0.7, k_num=10, y_var='Recharge RC 50% mm/y', y_predict='R50', aus_file='Australia_grid_0p05_data.csv', seed=42, test_data=False):
+def run_xgb_model(t_size=0.3, n_estimators=350, max_depth=12, learning_rate=0.01, min_child_weight=5, subsample=0.7, colsample_bytree=0.6, gamma=0.2, reg_alpha=1, reg_lambda=2, k_num=10, y_var='Recharge RC 50% mm/y', y_predict='R50', aus_file='Australia_grid_0p05_data.csv', seed=42, test_data=False):
     start_time = datetime.now()
     DataLocation = os.path.join(os.path.dirname(__file__), '..', 'data')
     os.chdir(DataLocation)
@@ -38,7 +38,7 @@ def run_xgb_model(t_size=0.3, n_estimators=350, max_depth=10, learning_rate=0.01
         Xtrain = train_data[train_params]
         ytrain = train_data[y_var]
 
-    xgb = XGBRegressor(n_estimators=n_estimators, max_depth=max_depth, learning_rate=learning_rate, min_child_weight=min_child_weight, subsample=subsample, colsample_bytree=colsample_bytree, random_state=random_num)
+    xgb = XGBRegressor(n_estimators=n_estimators, max_depth=max_depth, learning_rate=learning_rate, min_child_weight=min_child_weight, subsample=subsample, colsample_bytree=colsample_bytree, gamma=gamma, reg_alpha=reg_alpha, reg_lambda=reg_lambda, random_state=random_num)
     xgb.fit(Xtrain, ytrain)
 
     print(f'Training Score: {xgb.score(Xtrain, ytrain):.3f}')
@@ -78,7 +78,7 @@ def run_xgb_model(t_size=0.3, n_estimators=350, max_depth=10, learning_rate=0.01
 
 def optimize_xgb_model(X, y, param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1):
     xgb = XGBRegressor()
-    grid_search = HalvingGridSearchCV(estimator=xgb, param_grid=param_grid, cv=cv, scoring=scoring, n_jobs=n_jobs, verbose=2)
+    grid_search = HalvingGridSearchCV(estimator=xgb, param_grid=param_grid, cv=cv, scoring=scoring, n_jobs=n_jobs, verbose=1, aggressive_elimination=True)
     grid_search.fit(X, y)
     print(f'Best parameters found: {grid_search.best_params_}')
     print(f'Best score: {grid_search.best_score_}')
@@ -87,20 +87,33 @@ def optimize_xgb_model(X, y, param_grid, cv=5, scoring='neg_mean_squared_error',
 if __name__ == "__main__":
     run_xgb_model(test_data=True)
 
-    # param_grid = {
-    #     'learning_rate': [0.01, 0.02, 0.03],
-    #     'n_estimators': [250, 300, 350],
-    #     'max_depth': [10, 12, 14],
-    #     'min_child_weight': [4, 5, 6],
-    #     'subsample': [0.7, 0.8, 0.9],
-    #     'colsample_bytree': [0.6, 0.7, 0.8]
-    # }
-    # df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=42)
-    # df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
+#     param_grid = {
+#         'n_estimators': [300, 350, 400],
+#         'max_depth': [8, 10, 12],
+#         'learning_rate': [0.05, 0.01, 0.05],
+#         'min_child_weight': [5, 7, 9],
+#         'subsample': [0.6, 0.7, 0.8],
+#         'colsample_bytree': [0.6, 0.7, 0.8],
+#         'gamma': [0.2],
+#         'reg_alpha': [0, 0.5, 1],
+#         'reg_lambda': [1.5, 2, 2.5]
+#     }
+
+#     df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=42)
+#     df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
     
-    # train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
-    # X = df[train_params]
-    # y = df['Recharge RC 50% mm/y']
+#     train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
+#     X = df[train_params]
+#     y = df['Recharge RC 50% mm/y']
     
-    # best_model = optimize_xgb_model(X, y, param_grid)
-    # print(f'Optimized model: {best_model}')
+#     best_model = optimize_xgb_model(X, y, param_grid)
+#     print(f'Optimized model: {best_model}')
+#     df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=42)
+#     df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
+    
+#     train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
+#     X = df[train_params]
+#     y = df['Recharge RC 50% mm/y']
+    
+#     best_model = optimize_xgb_model(X, y, param_grid)
+#     print(f'Optimized model: {best_model}')
