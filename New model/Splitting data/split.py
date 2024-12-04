@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 data_folder = os.path.join(os.path.dirname(__file__), "..", 'data')
 print(data_folder)
 # Read all CSV files in the data folder
-data_files = ["Australia_grid_0p05_data.csv"]
+data_files = ["dat07_u.csv"]
 data_frames = [pd.read_csv(os.path.join(data_folder, file)) for file in data_files]
 
 # Concatenate all data frames into one
