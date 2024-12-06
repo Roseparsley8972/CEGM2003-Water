@@ -14,14 +14,16 @@ def run_rf_model(t_size=0.3, trees=250, max_splits=18, max_features=0.33, min_sa
     DataLocation = os.path.join(os.path.dirname(__file__), '..', 'data')
     os.chdir(DataLocation)
 
+    features = ['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality']
+
     df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=seed)
-    df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
+    df.dropna(subset= features, inplace=True)
     print(f"nans removed, removed {len(df) - len(df.dropna())}, removed {Decimal(100 * (len(df) - len(df.dropna()))/len(df)).quantize(Decimal('1.0'))}%")
     print(f"Remaining data has mean Rrc/P ratio: {Decimal(np.nanmean(df['Rrc/P'])).quantize(Decimal('1.00'))}")
 
-    train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
+    train_params = ['slope_perc' , 'Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
 
-    aus_X = pd.read_csv(aus_file)[train_params]
+    # aus_X = pd.read_csv(aus_file)[train_params]
     random.seed(seed)
     random_num = random.randint(0, 1000)
 
@@ -60,22 +62,22 @@ def run_rf_model(t_size=0.3, trees=250, max_splits=18, max_features=0.33, min_sa
         print(f'RMSE: {-np.mean(cv_results["test_rmse"]):.1f}')
         print(f'MAE: {-np.mean(cv_results["test_mae"]):.1f}')
 
-        print('Starting predictions...')
-        y_pred_aus = pd.DataFrame({'lat': pd.read_csv(aus_file).iloc[:,0], 'lon': pd.read_csv(aus_file).iloc[:,1], y_predict: rf.predict(aus_X)})
-        print('Finished prediction... writing values')
+    #     print('Starting predictions...')
+    #     y_pred_aus = pd.DataFrame({'lat': pd.read_csv(aus_file).iloc[:,0], 'lon': pd.read_csv(aus_file).iloc[:,1], y_predict: rf.predict(aus_X)})
+    #     print('Finished prediction... writing values')
 
-        y_pred_valid.to_csv(f'model_validation_predictions_errors_50_{trees}trees_mf{max_features}_{k_num}fold_out.csv', index=False)
-        y_pred_aus.to_csv(f'model_predictions_aus_{trees}trees_mf{max_features}_{k_num}fold_out.csv', index=False)
+    #     y_pred_valid.to_csv(f'model_validation_predictions_errors_50_{trees}trees_mf{max_features}_{k_num}fold_out.csv', index=False)
+    #     y_pred_aus.to_csv(f'model_predictions_aus_{trees}trees_mf{max_features}_{k_num}fold_out.csv', index=False)
     print(f'Model took: {(datetime.now() - start_time).total_seconds()/60:.2f} minutes to run')
 
-    # Save the trained model to a file if using test data
-    if test_data:
-        model_dir = os.path.join(os.path.dirname(__file__), '..', 'Trained_models')
-        if not os.path.exists(model_dir):
-            os.makedirs(model_dir)
-        model_filename = os.path.join(model_dir, f'rf_model_{trees}trees_mf{max_features}.pkl')
-        joblib.dump(rf, model_filename)
-        print(f'Model saved to {model_filename}')
+    # # Save the trained model to a file if using test data
+    # if test_data:
+    #     model_dir = os.path.join(os.path.dirname(__file__), '..', 'Trained_models')
+    #     if not os.path.exists(model_dir):
+    #         os.makedirs(model_dir)
+    #     model_filename = os.path.join(model_dir, f'rf_model_{trees}trees_mf{max_features}.pkl')
+    #     joblib.dump(rf, model_filename)
+    #     print(f'Model saved to {model_filename}')
 
 if __name__ == "__main__":
     run_rf_model(test_data=True)
