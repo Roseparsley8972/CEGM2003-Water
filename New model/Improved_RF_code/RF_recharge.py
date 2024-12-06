@@ -22,6 +22,7 @@ def run_rf_model(t_size=0.3, trees=250, max_splits=18, max_features=0.33, min_sa
     print(f"Remaining data has mean Rrc/P ratio: {Decimal(np.nanmean(df['Rrc/P'])).quantize(Decimal('1.00'))}")
 
     train_params = ['slope_perc' , 'Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
+    train_params = features
 
     # aus_X = pd.read_csv(aus_file)[train_params]
     random.seed(seed)
@@ -37,7 +38,7 @@ def run_rf_model(t_size=0.3, trees=250, max_splits=18, max_features=0.33, min_sa
         train_data_file = 'train_data.csv'
 
         train_data = pd.read_csv(train_data_file)
-        Xtrain = train_data[['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']]
+        Xtrain = train_data[train_params]
         ytrain = train_data[y_var]
 
     rf = RandomForestRegressor(n_estimators=trees, max_depth=max_splits, random_state=random_num, max_features=max_features, min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_split, oob_score=True)
