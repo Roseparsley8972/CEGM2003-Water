@@ -3,7 +3,11 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn.model_selection import GridSearchCV
+from sklearn.experimental import enable_halving_search_cv  # noqa
+from sklearn.model_selection import HalvingGridSearchCV
+from scipy.stats import randint
+from skopt import BayesSearchCV
+
 import os
 from datetime import datetime
 from decimal import Decimal
@@ -83,7 +87,7 @@ if __name__ == "__main__":
 
 def optimize_rf_model(X, y, param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1):
     estimator = RandomForestRegressor()
-    grid_search = GridSearchCV(
+    grid_search = HalvingGridSearchCV(
     estimator=estimator,
     param_grid=param_grid,
     cv=cv,
@@ -96,12 +100,32 @@ def optimize_rf_model(X, y, param_grid, cv=5, scoring='neg_mean_squared_error', 
     print(f'Best score: {grid_search.best_score_}')
     return grid_search.best_estimator_
 
-hyperparameter_grid = {'n_estimators':[50,100,150,200,250,300,350,400]}
+def Bayes_opt_rf(X,y,param_grid):
+    bayes_opt =  BayesSearchCV(
+    RandomForestRegressor(),
+    param_grid,
+    n_iter=32,  # Number of parameter settings to try
+    cv=3,       # Cross-validation
+    n_jobs=-1,  # Use all processors
+    random_state=42,
+    verbose=2
+    )
+    bayes_opt.fit(X,y)
+    print("Best Hyperparameters:", bayes_opt.best_params_)
+    print("Best Score:", bayes_opt.best_score_)
+    return bayes_opt.best_estimator_
+
+hyperparameter_grid = {'n_estimators':[100,200,300,400,500,600,700,800,900,1000],
+                        'max_depth': [3,8,13,18,23,28,33,38,43,48,50],
+                        'min_samples_split': [2,5,10,15,20],
+                        'min_samples_leaf': [1,5,10,15,20,25,30,35,40,45,50],
+                        'max_features': [0.1,0.3,0.5,0.7,0.9]   }
+
 train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
 
 df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=42)
 df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
 X = df[train_params]
 y = df['Recharge RC 50% mm/y']
-best_model = optimize_rf_model(X, y, hyperparameter_grid)
+best_model = Bayes_opt_rf(X, y, hyperparameter_grid)
 print(f'Optimized model: {best_model}')
