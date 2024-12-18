@@ -17,10 +17,10 @@ import matplotlib.pyplot as plt
 
 class Workflow():
     def __init__(self, k_num=10, y_var='Recharge RC 50% mm/y', y_predict='R50', aus_file='Australia_grid_0p05_data.csv', seed=42, test_data=False):
-        DataLocation = os.path.join(os.path.dirname(__file__), 'data')
+        self.DataLocation = os.path.join(os.path.dirname(__file__), 'data')
         self.trainparams = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
         self.aus_file = aus_file
-        self.aus_X = pd.read_csv(os.path.join(DataLocation, aus_file))[self.trainparams]
+        self.aus_X = pd.read_csv(os.path.join(self.DataLocation, aus_file))[self.trainparams]
         self.seed = seed
         random.seed(self.seed)
         self.random_num = random.randint(0, 1000)
@@ -28,13 +28,14 @@ class Workflow():
         self.y_var = y_var
         self.y_predict = y_predict
         self.test_data = test_data
-        self.load_data(DataLocation)
+        self.load_data(self.DataLocation)
 
     def load_data(self, path):
+        self.df = pd.read_csv(os.path.join(path, "dat07_u.csv"), low_memory=False).sample(frac=1, random_state=self.seed)
+
         if not self.test_data:
-            df = pd.read_csv(os.path.join(path, "dat07_u.csv"), low_memory=False).sample(frac=1, random_state=self.seed)
-            X = df[self.trainparams]
-            y = df[self.y_var]
+            X = self.df[self.trainparams]
+            y = self.df[self.y_var]
             t_size = 0.3
             self.Xtrain, self.Xvalid, self.ytrain, self.yvalid = train_test_split(X, y, test_size=t_size, random_state=self.random_num)
 
@@ -137,8 +138,33 @@ class Workflow():
         plt.title(title)
         plt.show()
 
+    def plot_parameters(self, plot_type='training'):
+        if plot_type == 'training':
+            data = self.df
+            params = self.trainparams
+            title = 'Training Parameters'
+
+        elif plot_type == 'prediction':
+            select = self.trainparams + ["lat", "lon"]
+            data = pd.read_csv(os.path.join(self.DataLocation, self.aus_file))[select]
+            params = self.trainparams
+            title = 'Prediction parameters'
+
+        fig, axes = plt.subplots(nrows=4, ncols=len(params)//4 + (len(params) % 4 > 0), figsize=(20, 15))
+        axes = axes.flatten()
+        for i, param in enumerate(params):
+            ax = axes[i]
+            sc = ax.scatter(data['lon'], data['lat'], s=0.1, c=data[param], cmap='viridis', alpha=0.5, label=param)
+            fig.colorbar(sc, ax=ax, label=param)
+            ax.set_xlabel('Longitude ($\degree$E)')
+            ax.set_ylabel('Latitude ($\degree$N)')
+            ax.set_aspect('equal', 'box')
+            ax.legend(loc='lower left')
+        plt.suptitle(title)
+        plt.tight_layout()
+        plt.show()
+
 if __name__ == "__main__":
     workflow = Workflow()
-    workflow.plot_model_predictions()
-    workflow.plot_model_predictions(model="xgb")
+    workflow.plot_parameters(plot_type='prediction')
 
