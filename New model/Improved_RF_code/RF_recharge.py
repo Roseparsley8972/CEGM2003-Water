@@ -72,13 +72,12 @@ def run_rf_model(t_size=0.3, trees=50, max_splits=40, max_features='log2', min_s
     print(f'Model took: {(datetime.now() - start_time).total_seconds()/60:.2f} minutes to run')
 
     # Save the trained model to a file if using test data
-    if test_data:
-        model_dir = os.path.join(os.path.dirname(__file__), '..', 'Trained_models')
-        if not os.path.exists(model_dir):
-            os.makedirs(model_dir)
-        model_filename = os.path.join(model_dir, f'rf_model_{trees}trees_mf{max_features}.pkl')
-        joblib.dump(rf, model_filename)
-        print(f'Model saved to {model_filename}')
+    model_dir = os.path.join(os.path.dirname(__file__), '..', 'Trained_models')
+    if not os.path.exists(model_dir):
+        os.makedirs(model_dir)
+    model_filename = os.path.join(model_dir, f'rf_model_{trees}trees_mf{max_features}_{test_data}.pkl')
+    joblib.dump(rf, model_filename)
+    print(f'Model saved to {model_filename}')
 
 if __name__ == "__main__":
     run_rf_model(test_data=False)
