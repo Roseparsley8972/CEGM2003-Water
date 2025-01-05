@@ -1,0 +1,36 @@
+import os
+import pandas as pd
+
+def find_matching_coordinates(data_file_1='Australia_grid_0p05_data.csv', data_file_2='dat07_u.csv'):
+    # Set the data location
+    DataLocation = os.path.join(os.path.dirname(__file__), '..', 'data')
+    os.chdir(DataLocation)
+    
+    # Load the first 100 rows of the dat07 file into a DataFrame
+    df1 = pd.read_csv(data_file_1)
+    df2 = pd.read_csv(data_file_2, nrows=90000)  # Only load the first 100 rows
+
+    
+    # Extract latitude and longitude from both DataFrames
+    coordinates1 = df1[['lat', 'lon']]
+    coordinates2 = df2[['lat', 'lon']].copy()  # Use .copy() to avoid warning
+    
+    # Round the coordinates in the second DataFrame to 2 decimal places
+    coordinates2.loc[:, 'lat'] = coordinates2['lat'].round(2)  # Use .loc for assignment
+    coordinates2.loc[:, 'lon'] = coordinates2['lon'].round(2)  # Use .loc for assignment
+    
+    # Compare the coordinates from the two DataFrames using merge to find common coordinates
+    matching_coordinates = pd.merge(coordinates1, coordinates2, on=['lat', 'lon'])
+    
+    # Count the number of matching coordinates
+    num_matches = matching_coordinates.shape[0]
+    
+    # Print or return the results
+    print(f'Number of matching coordinates: {num_matches}')
+    
+    # Optional: Return the matching coordinates DataFrame if needed
+    return matching_coordinates
+
+# Example usage
+if __name__ == "__main__":
+    matching_coords = find_matching_coordinates()

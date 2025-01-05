@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
-def plot_map_from_csv(data_file='test_data.csv'):
+def plot_map_from_csv(data_file='Australia_grid_0p05_data.csv'):
     # Set the data location
     DataLocation = os.path.join(os.path.dirname(__file__), '..', 'data')
     os.chdir(DataLocation)
