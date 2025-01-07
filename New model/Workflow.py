@@ -52,7 +52,7 @@ class Workflow():
 
     def RF_train(self, n_estimators=50, max_depth=40, max_features='log2', min_samples_leaf=8, min_samples_split=8, bootstrap=False, oob_score=False):
         print("Training Random Forest")
-        self.rf = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=self.random_num, max_features='log2', min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_split, bootstrap=bootstrap, oob_score=oob_score)
+        self.rf = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=self.random_num, max_features=max_features, min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_split, bootstrap=bootstrap, oob_score=oob_score)
         self.rf.fit(self.Xtrain, self.ytrain)
         print(f'Training Score Random Forest: {self.rf.score(self.Xtrain, self.ytrain):.3f}')
 
@@ -194,5 +194,6 @@ class Workflow():
 
 if __name__ == "__main__":
     workflow = Workflow(test_data=True)
+    workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
     workflow.validate_models()
 
