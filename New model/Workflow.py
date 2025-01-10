@@ -136,7 +136,7 @@ class Workflow():
             self.Xvalid = validation_data[self.trainparams]
             self.yvalid = validation_data[self.y_var]
 
-    def RF_train(self, n_estimators=50, max_depth=40, max_features='log2', min_samples_leaf=8, min_samples_split=8, bootstrap=False, oob_score=False):
+    def RF_train(self, n_estimators=50, max_depth=40, max_features='log2', min_samples_leaf=8, min_samples_split=8, bootstrap=False, oob_score=False, old_model=False):
         """
         Trains a Random Forest Regressor model using the provided training data.
         Parameters:
@@ -153,10 +153,29 @@ class Workflow():
         Training progress and the training score of the Random Forest model.
         """
 
-        print("Training Random Forest")
-        self.rf = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=self.random_num, max_features=max_features, min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_split, bootstrap=bootstrap, oob_score=oob_score)
-        self.rf.fit(self.Xtrain, self.ytrain)
-        print(f'Training Score Random Forest: {self.rf.score(self.Xtrain, self.ytrain):.3f}')
+        if not old_model:
+            print("Training Random Forest")
+            
+            self.rf = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=self.random_num, max_features=max_features, min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_split, bootstrap=bootstrap, oob_score=oob_score)
+            self.rf.fit(self.Xtrain, self.ytrain)
+            print(f'Training Score Random Forest: {self.rf.score(self.Xtrain, self.ytrain):.3f}')
+
+        if old_model:
+            trees = 250
+            max_splits = 18
+            max_features = 0.33
+            max_leaf_nodes = None
+            min_samples_leaf = 8
+            min_samples_split = 2
+
+            self.rf_old = RandomForestRegressor(n_estimators=trees, max_depth=max_splits,
+                                           random_state=self.seed, max_features=max_features,
+                                           max_leaf_nodes=max_leaf_nodes, min_samples_leaf=min_samples_leaf,
+                                           min_samples_split=min_samples_split,
+                                           oob_score=True)
+            
+            self.rf_old.fit(self.Xtrain, self.ytrain)
+            print(f'Training Score Random Forest: {self.rf_old.score(self.Xtrain, self.ytrain):.3f}')
 
     def RF_cross_validdation(self):
         """
@@ -325,20 +344,41 @@ class Workflow():
             predictions = self.xgb.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
             print(f'R2 Score for XGB model: {r2:.3f}')
+
+        elif model == 'old_rf':
+            if not hasattr(self, 'rf_old'):
+                self.RF_train(old_model=True)
+            predictions = self.rf_old.predict(self.Xvalid)
+            r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for old RF model: {r2:.3f}')   
+
         elif model == 'all':
+            start_time = datetime.now()
             if not hasattr(self, 'rf'):
                 self.RF_train()
             rf_predictions = self.rf.predict(self.Xvalid)
             rf_r2 = r2_score(self.yvalid, rf_predictions)
             print(f'R2 Score for RF model: {rf_r2:.3f}')
+            print(f'Time taken to train RF model: {datetime.now() - start_time}')
 
+            start_time = datetime.now()
             if not hasattr(self, 'xgb'):
                 self.XGB_train()
             xgb_predictions = self.xgb.predict(self.Xvalid)
             xgb_r2 = r2_score(self.yvalid, xgb_predictions)
             print(f'R2 Score for XGB model: {xgb_r2:.3f}')
+            print(f'Time taken to train XGB model: {datetime.now() - start_time}')
+
+            start_time = datetime.now()
+            if not hasattr(self, 'rf_old'):
+                self.RF_train(old_model=True)
+            predictions = self.rf_old.predict(self.Xvalid)
+            r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for old RF model: {r2:.3f}')
+            print(f'Time taken to train old RF model: {datetime.now() - start_time}')
+
         else:
-            raise ValueError("Model should be 'rf', 'xgb', or 'all'")
+            raise ValueError("Model should be 'rf', 'xgb', 'old_rd' or 'all'")
 
     def plot_model_predictions(self, model='rf'):
         """
@@ -376,7 +416,7 @@ class Workflow():
         plt.title(title)
         plt.show()
 
-    def plot_parameters(self, plot_type='training', plot_rainfall_only=False):
+    def plot_parameters(self, plot_type='training', plot_rainfall_only=False, plot_recharge_only=False):
         """
         Plots the parameters on a scatter plot based on the specified plot type.
         Parameters:
@@ -425,6 +465,18 @@ class Workflow():
             plt.title('Rainfall Distribution')
             plt.show()
 
+
+        if plot_recharge_only:
+            fig, ax = plt.subplots(figsize=(8, 5))
+            vmax = np.percentile(data['Recharge RC 50% mm/y'], 99)
+            sc = ax.scatter(data['lon'], data['lat'], s=0.1, c=data['Recharge RC 50% mm/y'], cmap='viridis', alpha=0.5, vmax=vmax)
+            fig.colorbar(sc, ax=ax, label='Recharge RC 50% (mm/y)')
+            ax.set_xlabel('Longitude ($\degree$E)')
+            ax.set_ylabel('Latitude ($\degree$N)')
+            ax.set_aspect('equal', 'box')
+            plt.title('Recharge RC 50% Distribution')
+            plt.show()
+
     def compare_model_predictions(self, models=['rf', 'xgb']):
         """
         Compare the predictions of the specified models on the validation dataset.
@@ -464,5 +516,5 @@ class Workflow():
 
 if __name__ == "__main__":
     workflow = Workflow(test_data=True)
-    workflow.plot_parameters(plot_type='training', plot_rainfall_only=True)
+    workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
 
