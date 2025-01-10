@@ -376,7 +376,7 @@ class Workflow():
         plt.title(title)
         plt.show()
 
-    def plot_parameters(self, plot_type='training'):
+    def plot_parameters(self, plot_type='training', plot_rainfall_only=False):
         """
         Plots the parameters on a scatter plot based on the specified plot type.
         Parameters:
@@ -413,6 +413,17 @@ class Workflow():
         plt.suptitle(title)
         plt.tight_layout()
         plt.show()
+
+    
+        if plot_rainfall_only:
+            fig, ax = plt.subplots(figsize=(8, 5))
+            sc = ax.scatter(data['lon'], data['lat'], s=0.1, c=data['Rain mm/y'], cmap='Blues', alpha=0.5, vmax=1000)
+            fig.colorbar(sc, ax=ax, label='Rainfall (mm/y)')
+            ax.set_xlabel('Longitude ($\degree$E)')
+            ax.set_ylabel('Latitude ($\degree$N)')
+            ax.set_aspect('equal', 'box')
+            plt.title('Rainfall Distribution')
+            plt.show()
 
     def compare_model_predictions(self, models=['rf', 'xgb']):
         """
@@ -453,5 +464,5 @@ class Workflow():
 
 if __name__ == "__main__":
     workflow = Workflow(test_data=True)
-    workflow.compare_model_predictions()
+    workflow.plot_parameters(plot_type='training', plot_rainfall_only=True)
 
