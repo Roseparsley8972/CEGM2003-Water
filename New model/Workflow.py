@@ -439,9 +439,9 @@ class Workflow():
         if 'rf' in models and 'xgb' in models:
             diff = (self.rf_y_pred_aus[self.y_predict] - self.xgb_y_pred_aus[self.y_predict]).abs() / self.xgb_y_pred_aus[self.y_predict] * 100
             print(max(diff))
-            print(np.percentile(diff, 95))
+            print(np.percentile(diff, 99))
             diff = (self.rf_y_pred_aus[self.y_predict] - self.xgb_y_pred_aus[self.y_predict]).abs() / self.xgb_y_pred_aus[self.y_predict] * 100
-            max_diff = np.percentile(diff, 95)
+            max_diff = np.percentile(diff, 99)
             sc = ax.scatter(self.rf_y_pred_aus['lon'], self.rf_y_pred_aus['lat'], c=diff, cmap='coolwarm', alpha=0.5, vmax=max_diff)
             fig.colorbar(sc, ax=ax, label='Absolute Percentage Difference (RF - XGB)')
 
