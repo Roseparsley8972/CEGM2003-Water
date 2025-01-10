@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 
 # Define the path to the data folder
 # Replace with the absolute path or ensure the data is in the current working directory
-data_folder = os.path.abspath(os.path.join("..", "data"))
+data_folder = os.path.join(os.path.dirname(__file__), "..", "data")
 data_file = os.path.join(data_folder, "dat07_u.csv")
 
 # Check if the file exists
