@@ -14,7 +14,6 @@ from decimal import Decimal
 import random
 import joblib
 
-def run_rf_model(t_size=0.3, trees=250, max_splits=18, max_features=0.33, min_samples_leaf=8, min_samples_split=2, k_num=10, y_var='Recharge RC 50% mm/y', y_predict='R50', aus_file='Australia_grid_0p05_data.csv', seed=42, test_data=False):
     #t_size: Determines the size of the train and test set size
     #trees: Number of decision trees that the random forest model will create.
     #max_splits: How deep it can be, which indirectly becomes the number of branches since every new depth level creates new branches. 
