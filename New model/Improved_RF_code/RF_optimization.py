@@ -11,6 +11,7 @@ from sklearn.experimental import enable_halving_search_cv # noqa
 from sklearn.model_selection import HalvingGridSearchCV
 import random
 import joblib
+import matplotlib.pyplot as plt
 
 def optimize_rf_model(X, y, param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1):
     estimator = RandomForestRegressor()
@@ -47,3 +48,21 @@ X = df[train_params]
 y = df['Recharge RC 50% mm/y']
 best_model = optimize_rf_model(X, y, hyperparameter_grid)
 print(f'Optimized model: {best_model}')
+
+#Gives a ranking of the most important features for the tree model
+# After fitting the best_model
+importances = best_model.feature_importances_
+feature_names = X.columns  # Get the names of features used in the model
+
+# Create a DataFrame for better visualization
+importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+importance_df = importance_df.sort_values(by='Importance', ascending=False)
+
+print(importance_df)
+
+# Optional: Plot feature importance
+plt.figure(figsize=(10, 5))
+plt.barh(importance_df['Feature'], importance_df['Importance'], color='lightblue')
+plt.xlabel('Importance Score')
+plt.title('Feature Importance')
+plt.show()
