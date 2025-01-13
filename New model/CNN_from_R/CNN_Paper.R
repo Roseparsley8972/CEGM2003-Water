@@ -86,7 +86,7 @@ seq.int(from = imageres/2, by = imageres, length.out = imagedim)-(imageres*image
 cells <- as.data.table(expand.grid(x = seq.int(from = imageres/2, by = imageres, length.out = imagedim)-(imageres*imagedim)/2, 
                                    y = seq.int(from = imageres/2, by = imageres, length.out = imagedim)-(imageres*imagedim)/2))
 cells[ ,coordx := rep(1:imagedim, imagedim),]
-cells[ ,coordy := rep(1:imagedim, each = imagedim),]
+cells[ ,coordy := rep(1:imagedim, each = 3),]
 
 time <- Sys.time()
 for(xmeter in unique(cells$coordx)){
