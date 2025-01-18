@@ -52,7 +52,7 @@ class Workflow():
 
     def RF_train(self, n_estimators=50, max_depth=40, max_features='log2', min_samples_leaf=8, min_samples_split=8, bootstrap=False, oob_score=False):
         print("Training Random Forest")
-        self.rf = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=self.random_num, max_features='log2', min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_split, bootstrap=bootstrap, oob_score=oob_score)
+        self.rf = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=self.random_num, max_features=max_features, min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_split, bootstrap=bootstrap, oob_score=oob_score)
         self.rf.fit(self.Xtrain, self.ytrain)
         print(f'Training Score Random Forest: {self.rf.score(self.Xtrain, self.ytrain):.3f}')
 
@@ -118,6 +118,34 @@ class Workflow():
         self.xgb_y_pred_valid.to_csv(f'model_validation_predictions_errors_XGB_{datetime.now().date()}.csv', index=False)
         self.xgb_y_pred_aus.to_csv(f'model_predictions_aus_XGB_{datetime.now().date()}.csv', index=False)
  
+    def validate_models(self, model='all'):
+        if model == 'rf':
+            if not hasattr(self, 'rf'):
+                self.RF_train()
+            predictions = self.rf.predict(self.Xvalid)
+            r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for RF model: {r2:.3f}')
+        elif model == 'xgb':
+            if not hasattr(self, 'xgb'):
+                self.XGB_train()
+            predictions = self.xgb.predict(self.Xvalid)
+            r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for XGB model: {r2:.3f}')
+        elif model == 'all':
+            if not hasattr(self, 'rf'):
+                self.RF_train()
+            rf_predictions = self.rf.predict(self.Xvalid)
+            rf_r2 = r2_score(self.yvalid, rf_predictions)
+            print(f'R2 Score for RF model: {rf_r2:.3f}')
+
+            if not hasattr(self, 'xgb'):
+                self.XGB_train()
+            xgb_predictions = self.xgb.predict(self.Xvalid)
+            xgb_r2 = r2_score(self.yvalid, xgb_predictions)
+            print(f'R2 Score for XGB model: {xgb_r2:.3f}')
+        else:
+            raise ValueError("Model should be 'rf', 'xgb', or 'all'")
+
     def plot_model_predictions(self, model='rf'):
         if model == 'rf' and not hasattr(self, 'rf_y_pred_aus'):
             self.RF_predictions()
@@ -165,6 +193,7 @@ class Workflow():
         plt.show()
 
 if __name__ == "__main__":
-    workflow = Workflow()
-    workflow.plot_parameters(plot_type='prediction')
+    workflow = Workflow(test_data=True)
+    workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
+    workflow.validate_models()
 
