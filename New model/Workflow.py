@@ -395,10 +395,10 @@ class Workflow():
         """
         Validate the performance of the trained models on the validation dataset.
         Parameters:
-        model (str): The model to validate. Options are 'rf' for Random Forest, 'xgb' for XGBoost, 
+        model (str): The model to validate. Options are 'rf' for Random Forest, 'xgb' for XGBoost, 'lasso' for Lasso 
                      or 'all' to validate both models. Default is 'all'.
         Raises:
-        ValueError: If the model parameter is not 'rf', 'xgb', or 'all'.
+        ValueError: If the model parameter is not 'rf', 'xgb', 'lasso', or 'all'.
         This method prints the R2 score for the specified model(s) on the validation dataset.
         If the specified model is not trained, it will be trained before validation.
         """
@@ -467,9 +467,9 @@ class Workflow():
         """
         Plots the model predictions on a scatter plot.
         Parameters:
-        model (str): The model to use for predictions. Options are 'rf' for Random Forest and 'xgb' for XGBoost. Default is 'rf'.
+        model (str): The model to use for predictions. Options are 'rf' for Random Forest, 'xgb' for XGBoost and 'lasso' for Lasso. Default is 'rf'.
         This function checks if the predictions for the specified model are already computed. 
-        If not, it computes the predictions by calling the appropriate method (RF_predictions or XGB_predictions).
+        If not, it computes the predictions by calling the appropriate method (RF_predictions, XGB_predictions or Lasso_predictions).
         It then creates a scatter plot of the predictions with longitude and latitude on the x and y axes, respectively.
         The color of the points represents the predicted recharge rate.
         The plot includes:
