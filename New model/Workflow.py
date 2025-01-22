@@ -13,6 +13,8 @@ from sklearn.experimental import enable_halving_search_cv # noqa
 from sklearn.model_selection import HalvingGridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
+from sklearn.linear_model import Lasso
+
 
 
 class Workflow():
@@ -173,7 +175,7 @@ class Workflow():
             self.rf_old.fit(self.Xtrain, self.ytrain)
             print(f'Training Score Random Forest: {self.rf_old.score(self.Xtrain, self.ytrain):.3f}')
 
-    def RF_cross_validdation(self):
+    def RF_cross_validation(self):
         """
         Perform cross-validation on the Random Forest model and print the results.
         This method checks if the Random Forest model has been trained. If not, it calls the RF_train method to train the model.
@@ -316,6 +318,41 @@ class Workflow():
         self.xgb_y_pred_valid.to_csv(f'model_validation_predictions_errors_XGB_{datetime.now().date()}.csv', index=False)
         self.xgb_y_pred_aus.to_csv(f'model_predictions_aus_XGB_{datetime.now().date()}.csv', index=False)
  
+    def Lasso_train(self, alpha = 0.1):
+        print("Training Lasso")
+        self.lasso = Lasso(alpha=alpha, random_state=self.random_num)
+        self.lasso.fit(self.Xtrain, self.ytrain)
+        print(f'Training Score Lasso: {self.lasso.score(self.Xtrain, self.ytrain):.3f}')
+
+    def Lasso_cross_validation(self):
+        if not hasattr(self, 'lasso'):
+            self.Lasso_train()
+
+        print("Lasso Cross Validation")
+        scoring = {'r2': 'r2', 'mae': 'neg_mean_absolute_error', 'rmse': 'neg_root_mean_squared_error'}
+        cv_results = cross_validate(self.lasso, self.Xtrain, self.ytrain, cv=self.k_num, scoring=scoring, n_jobs=-1)
+        print(f'k={self.k_num}')
+        print(f'R2 Score: {np.mean(cv_results["test_r2"]):.3f}')
+        print(f'RMSE: {-np.mean(cv_results["test_rmse"]):.1f}')
+        print(f'MAE: {-np.mean(cv_results["test_mae"]):.1f}')
+
+    def Lasso_predictions(self, path=os.path.join(os.path.dirname(__file__), 'data')):
+        if not hasattr(self, 'lasso'):
+            self.Lasso_train()
+
+        print('Starting Lasso predictions')
+        self.lasso_y_pred_aus = pd.DataFrame({'lat': pd.read_csv(os.path.join(path, self.aus_file)).iloc[:,0], 'lon': pd.read_csv(os.path.join(path, self.aus_file)).iloc[:,1], self.y_predict: self.lasso.predict(self.aus_X)})
+        print('Finished prediction... writing values')
+
+        lasso_ypredv = self.lasso.predict(self.Xvalid)
+        self.lasso_y_pred_valid = pd.DataFrame({'lasso_y_predict': lasso_ypredv, 'lasso_y_validation': self.yvalid})
+        self.lasso_y_pred_valid['Residual (predicted R - CMB R)'] = self.lasso_y_pred_valid['lasso_y_predict'] - self.lasso_y_pred_valid['lasso_y_validation']
+        self.lasso_y_pred_valid['Residual (%)'] = ((self.lasso_y_pred_valid['lasso_y_predict'] - self.lasso_y_pred_valid['lasso_y_validation']) / self.lasso_y_pred_valid['lasso_y_validation']) * 100
+
+        self.lasso_y_pred_valid.to_csv(f'model_validation_predictions_errors_Lasso_{datetime.now().date()}.csv', index=False)
+        self.lasso_y_pred_aus.to_csv(f'model_predictions_aus_lasso_{datetime.now().date()}.csv', index=False)
+
+
     def validate_models(self, model='all'):
         """
         Validate the performance of the trained models on the validation dataset.
@@ -340,6 +377,12 @@ class Workflow():
             predictions = self.xgb.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
             print(f'R2 Score for XGB model: {r2:.3f}')
+        elif model == 'lasso':
+            if not hasattr(self, 'lasso'):
+                self.Lasso_train()
+            predictions = self.lasso.predict(self.Xvalid)
+            r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for Lasso model: {r2:.3f}')
 
         elif model == 'old_rf':
             if not hasattr(self, 'rf_old'):
@@ -363,6 +406,12 @@ class Workflow():
             xgb_predictions = self.xgb.predict(self.Xvalid)
             xgb_r2 = r2_score(self.yvalid, xgb_predictions)
             print(f'R2 Score for XGB model: {xgb_r2:.3f}')
+
+            if not hasattr(self, 'lasso'):
+                self.Lasso_train()
+            predictions = self.lasso.predict(self.Xvalid)
+            r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for Lasso model: {r2:.3f}')
             print(f'Time taken to train XGB model: {datetime.now() - start_time}')
 
             start_time = datetime.now()
@@ -374,7 +423,7 @@ class Workflow():
             print(f'Time taken to train old RF model: {datetime.now() - start_time}')
 
         else:
-            raise ValueError("Model should be 'rf', 'xgb', 'old_rd' or 'all'")
+            raise ValueError("Model should be 'rf', 'xgb', 'lasso, 'old_rd' or 'all'")
 
     def plot_model_predictions(self, model='rf'):
         """
@@ -397,13 +446,17 @@ class Workflow():
             self.RF_predictions()
         elif model == 'xgb' and not hasattr(self, 'xgb_y_pred_aus'):
             self.XGB_predictions()
-
+        elif model == 'lasso' and not hasattr(self, 'lasso_y_pred_aus'):
+            self.Lasso_predictions()
         if model == 'rf':
             data = self.rf_y_pred_aus
             title = 'Random Forest Predictions'
         elif model == 'xgb':
             data = self.xgb_y_pred_aus
             title = 'XGBoost Predictions'
+        elif model == 'lasso':
+            data = self.lasso_y_pred_aus
+            title = 'Lasso Predictions'
 
         fig, ax = plt.subplots(figsize=(8, 5))
         sc = ax.scatter(data['lon'], data['lat'], s=0.1, c=data[self.y_predict], cmap='Blues')#, vmax=1000)
@@ -513,4 +566,9 @@ class Workflow():
 if __name__ == "__main__":
     workflow = Workflow()
     workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
+    workflow = Workflow(test_data=True)
+    workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
+    workflow.validate_models()
+    # workflow.plot_parameters()
+
 
