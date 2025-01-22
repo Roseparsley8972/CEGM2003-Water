@@ -45,7 +45,7 @@ y_predict = ['R5', 'R50', 'R95']
 y_pred_valid = pd.DataFrame()
 y_pred_aus = pd.DataFrame()
 random_nums = [] # create empty list to write random numbers
-aus_file = 'Australia_grid_0p05_data.csv'
+aus_file = 'Australia_grid_0p05_data_new.csv'
 
 #%%
 #Start loop to go through mean, lower and upper
