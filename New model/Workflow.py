@@ -319,12 +319,50 @@ class Workflow():
         self.xgb_y_pred_aus.to_csv(f'model_predictions_aus_XGB_{datetime.now().date()}.csv', index=False)
  
     def Lasso_train(self, alpha = 0.1):
+        """
+        1. Initializes a Lasso regression model with the given alpha and random seed.
+        2. Fits the model to the training data (`Xtrain` and `ytrain`).
+        3. Prints the training score (R2 score) of the model on the training dataset.
+
+        action: 
+        Trains a Lasso regression model with the given hyperparameter.
+        Parameters:
+        alpha (float): The regularization strength. Default is 0.1.
+                    A smaller value indicates weaker regularization.
+        returns: 
+        training score lasso
+            
+        """
         print("Training Lasso")
         self.lasso = Lasso(alpha=alpha, random_state=self.random_num)
         self.lasso.fit(self.Xtrain, self.ytrain)
         print(f'Training Score Lasso: {self.lasso.score(self.Xtrain, self.ytrain):.3f}')
 
     def Lasso_cross_validation(self):
+
+        """
+        Performs cross-validation using the Lasso regression model.
+        This method:
+        1. Checks if the Lasso model has been trained. If not, it trains the model first.
+        2. Performs k-fold cross-validation on the training dataset.
+        3. Evaluates and prints the mean R2 score, RMSE, and MAE across all folds.
+        Parameters:
+        None
+        Attributes:
+            lasso: The trained Lasso regression model.
+            Xtrain: The training data features.
+            ytrain: The training data target values.
+            k_num: The number of folds for cross-validation.
+        Prints:
+            - Number of folds used in cross-validation.
+            - Mean R2 score from cross-validation.
+            - Mean RMSE from cross-validation.
+            - Mean MAE from cross-validation.
+        """
+    if not hasattr(self, 'lasso'):
+        self.Lasso_train()
+
+
         if not hasattr(self, 'lasso'):
             self.Lasso_train()
 
