@@ -248,74 +248,11 @@ class Workflow():
         plt.tight_layout()
         plt.show()
 
-    def Voting_regressor(self):
-        print("Creating Voting Regressor")
-        # Ensure that individual models are trained
-        if not hasattr(self, 'rf'):
-            self.RF_train()
-        if not hasattr(self, 'xgb'):
-            self.XGB_train()
-        if not hasattr(self, 'lasso'):
-            self.Lasso_train()
-
-        # Create Voting Regressor
-        self.voting_regressor = VotingRegressor(
-            estimators=[
-                ('rf', self.rf), 
-                ('xgb', self.xgb), 
-                # ('lasso', self.lasso)
-            ]
-        )
     
-        # Fit the Voting Regressor on the training data
-        self.voting_regressor.fit(self.Xtrain, self.ytrain)
-        print("Voting Regressor trained")
-        
-        # Validation of the Voting Regressor
-        voting_predictions = self.voting_regressor.predict(self.Xvalid)
-        voting_r2 = r2_score(self.yvalid, voting_predictions)
-        print(f'R2 Score for Voting Regressor: {voting_r2:.3f}')
     
-    def stacking_model(self):
-        print("Creating Stacking Regressor")
-        
-        # Define base models
-        if not hasattr(self, 'rf'):
-            self.RF_train()
-        
-        if not hasattr(self, 'xgb'):
-            self.XGB_train()
-            
-        if not hasattr(self, 'lasso'):
-            self.Lasso_train()
-
-        # Define base models using the existing trained models
-        base_models = [
-            ('rf', self.rf),
-            ('xgb', self.xgb),
-            # ('lasso', self.lasso)
-        ]
-        # Define the meta-model
-        meta_model = LinearRegression()
-
-        # Create the Stacking Regressor
-        stacking_regressor = StackingRegressor(estimators=base_models, final_estimator=meta_model)
-
-        # Fit the Stacking Regressor
-        stacking_regressor.fit(self.Xtrain, self.ytrain)
-
-        print("Stacking Regressor training completed.")
-
-        # Make predictions
-        predictions = stacking_regressor.predict(self.Xvalid)
-
-        # Calculate and print R² score
-        stacking_r2 = r2_score(self.yvalid, predictions)
-        print(f'R2 Score for Stacking Model: {stacking_r2:.3f}')
 if __name__ == "__main__":
     workflow = Workflow(test_data=True)
     # workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
     workflow.validate_models()
-    workflow.stacking_model()  
 
 
