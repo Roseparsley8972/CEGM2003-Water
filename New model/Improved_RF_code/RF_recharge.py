@@ -14,14 +14,14 @@ def run_rf_model(t_size=0.3, trees=250, max_splits=18, max_features=0.33, min_sa
     DataLocation = os.path.join(os.path.dirname(__file__), '..', 'data')
     os.chdir(DataLocation)
 
-    features = ['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality']
+    features = ['Rain mm/y', 'lat', 'lon', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality']
 
     df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=seed)
     df.dropna(subset= features, inplace=True)
     print(f"nans removed, removed {len(df) - len(df.dropna())}, removed {Decimal(100 * (len(df) - len(df.dropna()))/len(df)).quantize(Decimal('1.0'))}%")
     print(f"Remaining data has mean Rrc/P ratio: {Decimal(np.nanmean(df['Rrc/P'])).quantize(Decimal('1.00'))}")
 
-    train_params = ['slope_perc' , 'Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
+    train_params = ['slope_perc' , 'lat', 'lon', 'Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
     train_params = features
 
     # aus_X = pd.read_csv(aus_file)[train_params]
