@@ -570,3 +570,5 @@ if __name__ == "__main__":
     workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
     workflow.validate_models()
     # workflow.plot_parameters()
+
+
