@@ -466,6 +466,71 @@ class Workflow():
         else:
             raise ValueError("Model should be 'rf', 'xgb', 'lasso, 'old_rd' or 'all'")
 
+    def test_models(self, model='all'):
+        """
+        Validate the performance of the trained models on the test dataset.
+        Parameters:
+        model (str): The model to validate. Options are 'rf' for Random Forest, 'xgb' for XGBoost, 'lasso' for Lasso 
+                    or 'all' to validate both models. Default is 'all'.
+        Raises:
+        ValueError: If the model parameter is not 'rf', 'xgb', 'lasso', or 'all'.
+        This method prints the R2 score for the specified model(s) on the test dataset.
+        If the specified model is not trained, it will be trained before validation.
+        """
+        if model == 'rf':
+            if not hasattr(self, 'rf'):
+                self.RF_train()
+            predictions = self.rf.predict(self.Xtest)
+            r2 = r2_score(self.ytest, predictions)
+            print(f'R2 Score for RF model (Test data): {r2:.3f}')
+        elif model == 'xgb':
+            if not hasattr(self, 'xgb'):
+                self.XGB_train()
+            predictions = self.xgb.predict(self.Xtest)
+            r2 = r2_score(self.ytest, predictions)
+            print(f'R2 Score for XGB model (Test data): {r2:.3f}')
+        elif model == 'lasso':
+            if not hasattr(self, 'lasso'):
+                self.Lasso_train()
+            predictions = self.lasso.predict(self.Xtest)
+            r2 = r2_score(self.ytest, predictions)
+            print(f'R2 Score for Lasso model (Test data): {r2:.3f}')
+        elif model == 'old_rf':
+            if not hasattr(self, 'rf_old'):
+                self.RF_train(old_model=True)
+            predictions = self.rf_old.predict(self.Xtest)
+            r2 = r2_score(self.ytest, predictions)
+            print(f'R2 Score for old RF model (Test data): {r2:.3f}')   
+        elif model == 'all':
+            start_time = datetime.now()
+            if not hasattr(self, 'rf'):
+                self.RF_train()
+            rf_predictions = self.rf.predict(self.Xtest)
+            rf_r2 = r2_score(self.ytest, rf_predictions)
+            print(f'R2 Score for RF model (Test data): {rf_r2:.3f}')
+            print(f'Time taken to train RF model: {datetime.now() - start_time}')
+            start_time = datetime.now()
+            if not hasattr(self, 'xgb'):
+                self.XGB_train()
+            xgb_predictions = self.xgb.predict(self.Xtest)
+            xgb_r2 = r2_score(self.ytest, xgb_predictions)
+            print(f'R2 Score for XGB model (Test data): {xgb_r2:.3f}')
+            if not hasattr(self, 'lasso'):
+                self.Lasso_train()
+            lasso_predictions = self.lasso.predict(self.Xtest)
+            lasso_r2 = r2_score(self.ytest, lasso_predictions)
+            print(f'R2 Score for Lasso model (Test data): {lasso_r2:.3f}')
+            print(f'Time taken to train XGB model: {datetime.now() - start_time}')
+            start_time = datetime.now()
+            if not hasattr(self, 'rf_old'):
+                self.RF_train(old_model=True)
+            old_rf_predictions = self.rf_old.predict(self.Xtest)
+            old_rf_r2 = r2_score(self.ytest, old_rf_predictions)
+            print(f'R2 Score for old RF model (Test data): {old_rf_r2:.3f}')
+            print(f'Time taken to train old RF model: {datetime.now() - start_time}')
+        else:
+            raise ValueError("Model should be 'rf', 'xgb', 'lasso', 'old_rf' or 'all'")
+
     def plot_model_predictions(self, model='rf'):
         """
         Plots the model predictions on a scatter plot.
@@ -608,8 +673,9 @@ if __name__ == "__main__":
     workflow = Workflow()
     # workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
     # workflow = Workflow(test_data=True)
-    workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
-    workflow.validate_models()
+    # workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
+    # workflow.validate_models()
+    workflow.test_models()
     # workflow.plot_parameters()
 
 
