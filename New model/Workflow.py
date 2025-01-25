@@ -134,19 +134,22 @@ class Workflow():
 
         return self.Xtrain, self.ytrain, self.Xvalid, self.yvalid, self.Xtest, self.ytest
 
-    def RF_train(self, n_estimators=50, max_depth=40, max_features='log2', min_samples_leaf=8, min_samples_split=8, bootstrap=False, oob_score=False, old_model=False):
+    def RF_train(self, n_estimators=90, max_depth=50, max_features='log2', min_samples_leaf=6, min_samples_split=4, 
+                bootstrap=False, oob_score=False, old_model=False):
         """
         Trains a Random Forest Regressor model using the provided training data.
+        
         Parameters:
-        n_estimators (int): The number of trees in the forest. Default is 50.
-        max_depth (int): The maximum depth of the tree. Default is 40.
+        n_estimators (int): The number of trees in the forest. Default is 90.
+        max_depth (int): The maximum depth of the tree. Default is 50.
         max_features (str): The number of features to consider when looking for the best split. Default is 'log2'.
-        min_samples_leaf (int): The minimum number of samples required to be at a leaf node. Default is 8.
-        min_samples_split (int): The minimum number of samples required to split an internal node. Default is 8.
+        min_samples_leaf (int): The minimum number of samples required to be at a leaf node. Default is 6.
+        min_samples_split (int): The minimum number of samples required to split an internal node. Default is 4.
         bootstrap (bool): Whether bootstrap samples are used when building trees. Default is False.
         oob_score (bool): Whether to use out-of-bag samples to estimate the generalization accuracy. Default is False.
         Returns:
         None
+        
         Prints:
         Training progress and the training score of the Random Forest model.
         """
@@ -235,19 +238,20 @@ class Workflow():
         self.rf_y_pred_valid.to_csv(f'model_validation_predictions_errors_RF_{datetime.now().date()}.csv', index=False)
         self.rf_y_pred_aus.to_csv(f'model_predictions_aus_RF_{datetime.now().date()}.csv', index=False)
 
-    def XGB_train(self, n_estimators=350, max_depth=12, learning_rate=0.01, min_child_weight=5, subsample=0.7, colsample_bytree=0.6, gamma=0.2, reg_alpha=1, reg_lambda=2):
+    def XGB_train(self, n_estimators=400, max_depth=12, learning_rate=0.01, min_child_weight=5, subsample=0.6,
+                colsample_bytree=0.6, gamma=0.2, reg_alpha=0, reg_lambda=2.5):
         """
         Trains an XGBoost regressor model with the given hyperparameters.
         Parameters:
-        n_estimators (int): Number of boosting rounds. Default is 350.
+        n_estimators (int): Number of boosting rounds. Default is 400.
         max_depth (int): Maximum depth of a tree. Default is 12.
         learning_rate (float): Boosting learning rate. Default is 0.01.
         min_child_weight (int): Minimum sum of instance weight (hessian) needed in a child. Default is 5.
-        subsample (float): Subsample ratio of the training instances. Default is 0.7.
+        subsample (float): Subsample ratio of the training instances. Default is 0.6.
         colsample_bytree (float): Subsample ratio of columns when constructing each tree. Default is 0.6.
         gamma (float): Minimum loss reduction required to make a further partition on a leaf node of the tree. Default is 0.2.
-        reg_alpha (float): L1 regularization term on weights. Default is 1.
-        reg_lambda (float): L2 regularization term on weights. Default is 2.
+        reg_alpha (float): L1 regularization term on weights. Default is 0.
+        reg_lambda (float): L2 regularization term on weights. Default is 2.5.
         Returns:
         None
         """
@@ -318,12 +322,11 @@ class Workflow():
         self.xgb_y_pred_valid.to_csv(f'model_validation_predictions_errors_XGB_{datetime.now().date()}.csv', index=False)
         self.xgb_y_pred_aus.to_csv(f'model_predictions_aus_XGB_{datetime.now().date()}.csv', index=False)
  
-    def Lasso_train(self, alpha = 0.1):
+    def Lasso_train(self, alpha=0.01, max_iter=1000, tol=0.001):
         """
         1. Initializes a Lasso regression model with the given alpha and random seed.
         2. Fits the model to the training data (`Xtrain` and `ytrain`).
         3. Prints the training score (R2 score) of the model on the training dataset.
-
         action: 
         Trains a Lasso regression model with the given hyperparameter.
         Parameters:
@@ -334,7 +337,7 @@ class Workflow():
             
         """
         print("Training Lasso")
-        self.lasso = Lasso(alpha=alpha, random_state=self.random_num)
+        self.lasso = Lasso(alpha=alpha, max_iter=max_iter, tol=tol, random_state=self.random_num)
         self.lasso.fit(self.Xtrain, self.ytrain)
         print(f'Training Score Lasso: {self.lasso.score(self.Xtrain, self.ytrain):.3f}')
 
