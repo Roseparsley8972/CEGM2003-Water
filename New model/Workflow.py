@@ -408,26 +408,26 @@ class Workflow():
                 self.RF_train()
             predictions = self.rf.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for RF model: {r2:.3f}')
+            print(f'R2 Score for RF model (Validation data): {r2:.3f}')
         elif model == 'xgb':
             if not hasattr(self, 'xgb'):
                 self.XGB_train()
             predictions = self.xgb.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for XGB model: {r2:.3f}')
+            print(f'R2 Score for XGB model (Validation data): {r2:.3f}')
         elif model == 'lasso':
             if not hasattr(self, 'lasso'):
                 self.Lasso_train()
             predictions = self.lasso.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for Lasso model: {r2:.3f}')
+            print(f'R2 Score for Lasso model (Validation data): {r2:.3f}')
 
         elif model == 'old_rf':
             if not hasattr(self, 'rf_old'):
                 self.RF_train(old_model=True)
             predictions = self.rf_old.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for old RF model: {r2:.3f}')   
+            print(f'R2 Score for old RF model (Validation data): {r2:.3f}')   
 
         elif model == 'all':
             start_time = datetime.now()
@@ -435,7 +435,7 @@ class Workflow():
                 self.RF_train()
             rf_predictions = self.rf.predict(self.Xvalid)
             rf_r2 = r2_score(self.yvalid, rf_predictions)
-            print(f'R2 Score for RF model: {rf_r2:.3f}')
+            print(f'R2 Score for RF model (Validation data): {rf_r2:.3f}')
             print(f'Time taken to train RF model: {datetime.now() - start_time}')
 
             start_time = datetime.now()
@@ -443,13 +443,13 @@ class Workflow():
                 self.XGB_train()
             xgb_predictions = self.xgb.predict(self.Xvalid)
             xgb_r2 = r2_score(self.yvalid, xgb_predictions)
-            print(f'R2 Score for XGB model: {xgb_r2:.3f}')
+            print(f'R2 Score for XGB model (Validation data): {xgb_r2:.3f}')
 
             if not hasattr(self, 'lasso'):
                 self.Lasso_train()
             predictions = self.lasso.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for Lasso model: {r2:.3f}')
+            print(f'R2 Score for Lasso model (Validation data): {r2:.3f}')
             print(f'Time taken to train XGB model: {datetime.now() - start_time}')
 
             start_time = datetime.now()
@@ -457,7 +457,7 @@ class Workflow():
                 self.RF_train(old_model=True)
             predictions = self.rf_old.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for old RF model: {r2:.3f}')
+            print(f'R2 Score for old RF model (Validation data): {r2:.3f}')
             print(f'Time taken to train old RF model: {datetime.now() - start_time}')
 
         else:
