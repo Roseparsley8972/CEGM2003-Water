@@ -87,33 +87,33 @@ def optimize_xgb_model(X, y, param_grid, cv=5, scoring='neg_mean_squared_error',
 if __name__ == "__main__":
     run_xgb_model(test_data=True)
 
-#     param_grid = {
-#         'n_estimators': [300, 350, 400],
-#         'max_depth': [8, 10, 12],
-#         'learning_rate': [0.05, 0.01, 0.05],
-#         'min_child_weight': [5, 7, 9],
-#         'subsample': [0.6, 0.7, 0.8],
-#         'colsample_bytree': [0.6, 0.7, 0.8],
-#         'gamma': [0.2],
-#         'reg_alpha': [0, 0.5, 1],
-#         'reg_lambda': [1.5, 2, 2.5]
-#     }
+    param_grid = {
+        'n_estimators': [300, 350, 400],
+        'max_depth': [8, 10, 12],
+        'learning_rate': [0.05, 0.01, 0.05],
+        'min_child_weight': [5, 7, 9],
+        'subsample': [0.6, 0.7, 0.8],
+        'colsample_bytree': [0.6, 0.7, 0.8],
+        'gamma': [0.2],
+        'reg_alpha': [0, 0.5, 1],
+        'reg_lambda': [1.5, 2, 2.5]
+    }
 
-#     df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=42)
-#     df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
+    df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=42)
+    df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
     
-#     train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
-#     X = df[train_params]
-#     y = df['Recharge RC 50% mm/y']
+    train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
+    X = df[train_params]
+    y = df['Recharge RC 50% mm/y']
     
-#     best_model = optimize_xgb_model(X, y, param_grid)
-#     print(f'Optimized model: {best_model}')
-#     df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=42)
-#     df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
+    best_model = optimize_xgb_model(X, y, param_grid)
+    print(f'Optimized model: {best_model}')
+    df = pd.read_csv('dat07_u.csv', low_memory=False).sample(frac=1, random_state=42)
+    df.dropna(subset=['Rain mm/y', 'koppen_geiger', 'PET mm/y', 'distance_to_coast_km', 'Aridity', 'elevation_mahd', 'wtd_mbgs', 'regolith_depth_mbgs', 'slope_perc', 'clay_perc', 'silt_perc', 'sand_perc', 'soil_class', 'geology', 'ndvi_avg', 'vegex_cat', 'rainfall_seasonality'], inplace=True)
     
-#     train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
-#     X = df[train_params]
-#     y = df['Recharge RC 50% mm/y']
+    train_params = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
+    X = df[train_params]
+    y = df['Recharge RC 50% mm/y']
     
-#     best_model = optimize_xgb_model(X, y, param_grid)
-#     print(f'Optimized model: {best_model}')
+    best_model = optimize_xgb_model(X, y, param_grid)
+    print(f'Optimized model: {best_model}')

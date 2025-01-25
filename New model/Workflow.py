@@ -235,7 +235,8 @@ class Workflow():
         self.rf_y_pred_valid.to_csv(f'model_validation_predictions_errors_RF_{datetime.now().date()}.csv', index=False)
         self.rf_y_pred_aus.to_csv(f'model_predictions_aus_RF_{datetime.now().date()}.csv', index=False)
 
-    def XGB_train(self, n_estimators=350, max_depth=12, learning_rate=0.01, min_child_weight=5, subsample=0.7, colsample_bytree=0.6, gamma=0.2, reg_alpha=1, reg_lambda=2):
+    def XGB_train(self, n_estimators=400, max_depth=12, learning_rate=0.01, min_child_weight=5, subsample=0.6,
+    colsample_bytree=0.6, gamma=0.2, reg_alpha=0, reg_lambda=2.5):
         """
         Trains an XGBoost regressor model with the given hyperparameters.
         Parameters:
@@ -364,32 +365,31 @@ class Workflow():
         This method prints the R2 score for the specified model(s) on the validation dataset.
         If the specified model is not trained, it will be trained before validation.
         """
-
+            
         if model == 'rf':
             if not hasattr(self, 'rf'):
                 self.RF_train()
             predictions = self.rf.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for RF model: {r2:.3f}')
+            print(f'R2 Score for RF model (Validation data): {r2:.3f}')
         elif model == 'xgb':
             if not hasattr(self, 'xgb'):
                 self.XGB_train()
             predictions = self.xgb.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for XGB model: {r2:.3f}')
+            print(f'R2 Score for XGB model (Validation data): {r2:.3f}')
         elif model == 'lasso':
             if not hasattr(self, 'lasso'):
                 self.Lasso_train()
             predictions = self.lasso.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for Lasso model: {r2:.3f}')
-
+            print(f'R2 Score for Lasso model (Validation data): {r2:.3f}')
         elif model == 'old_rf':
             if not hasattr(self, 'rf_old'):
                 self.RF_train(old_model=True)
             predictions = self.rf_old.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for old RF model: {r2:.3f}')   
+            print(f'R2 Score for old RF model (Validation data): {r2:.3f}')     
 
         elif model == 'all':
             start_time = datetime.now()
@@ -397,29 +397,29 @@ class Workflow():
                 self.RF_train()
             rf_predictions = self.rf.predict(self.Xvalid)
             rf_r2 = r2_score(self.yvalid, rf_predictions)
-            print(f'R2 Score for RF model: {rf_r2:.3f}')
+            print(f'R2 Score for RF model (Validation data): {rf_r2:.3f}')
             print(f'Time taken to train RF model: {datetime.now() - start_time}')
-
+            
             start_time = datetime.now()
             if not hasattr(self, 'xgb'):
                 self.XGB_train()
             xgb_predictions = self.xgb.predict(self.Xvalid)
             xgb_r2 = r2_score(self.yvalid, xgb_predictions)
-            print(f'R2 Score for XGB model: {xgb_r2:.3f}')
-
+            print(f'R2 Score for XGB model (Validation data): {xgb_r2:.3f}')
+            print(f'Time taken to train XGB model: {datetime.now() - start_time}')
+            
             if not hasattr(self, 'lasso'):
                 self.Lasso_train()
             predictions = self.lasso.predict(self.Xvalid)
-            r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for Lasso model: {r2:.3f}')
-            print(f'Time taken to train XGB model: {datetime.now() - start_time}')
-
+            lasso_r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for Lasso model (Validation data): {lasso_r2:.3f}')
+            
             start_time = datetime.now()
             if not hasattr(self, 'rf_old'):
                 self.RF_train(old_model=True)
             predictions = self.rf_old.predict(self.Xvalid)
-            r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for old RF model: {r2:.3f}')
+            old_rf_r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for old RF model (Validation data): {old_rf_r2:.3f}')
             print(f'Time taken to train old RF model: {datetime.now() - start_time}')
 
         else:
@@ -565,10 +565,13 @@ class Workflow():
 
 if __name__ == "__main__":
     workflow = Workflow()
-    workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
-    workflow = Workflow(test_data=True)
-    workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
+    # workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
+    # workflow = Workflow(test_data=True)
+    # workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
     workflow.validate_models()
+
+    
+
     # workflow.plot_parameters()
 
 
