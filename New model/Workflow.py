@@ -327,12 +327,50 @@ class Workflow():
         self.xgb_y_pred_aus.to_csv(f'model_predictions_aus_XGB_{datetime.now().date()}.csv', index=False)
  
     def Lasso_train(self, alpha=0.01, max_iter=1000, tol=0.001):
+        """
+        1. Initializes a Lasso regression model with the given alpha and random seed.
+        2. Fits the model to the training data (`Xtrain` and `ytrain`).
+        3. Prints the training score (R2 score) of the model on the training dataset.
+
+        action: 
+        Trains a Lasso regression model with the given hyperparameter.
+        Parameters:
+        alpha (float): The regularization strength. Default is 0.1.
+                    A smaller value indicates weaker regularization.
+        returns: 
+        training score lasso
+            
+        """
         print("Training Lasso")
         self.lasso = Lasso(alpha=alpha, max_iter=max_iter, tol=tol, random_state=self.random_num)
         self.lasso.fit(self.Xtrain, self.ytrain)
         print(f'Training Score Lasso: {self.lasso.score(self.Xtrain, self.ytrain):.3f}')
 
     def Lasso_cross_validation(self):
+
+        """
+        Performs cross-validation using the Lasso regression model.
+        This method:
+        1. Checks if the Lasso model has been trained. If not, it trains the model first.
+        2. Performs k-fold cross-validation on the training dataset.
+        3. Evaluates and prints the mean R2 score, RMSE, and MAE across all folds.
+        Parameters:
+        None
+        Attributes:
+            lasso: The trained Lasso regression model.
+            Xtrain: The training data features.
+            ytrain: The training data target values.
+            k_num: The number of folds for cross-validation.
+        Prints:
+            - Number of folds used in cross-validation.
+            - Mean R2 score from cross-validation.
+            - Mean RMSE from cross-validation.
+            - Mean MAE from cross-validation.
+        """
+        if not hasattr(self, 'lasso'):
+            self.Lasso_train()
+
+
         if not hasattr(self, 'lasso'):
             self.Lasso_train()
 
@@ -365,10 +403,10 @@ class Workflow():
         """
         Validate the performance of the trained models on the validation dataset.
         Parameters:
-        model (str): The model to validate. Options are 'rf' for Random Forest, 'xgb' for XGBoost, 
+        model (str): The model to validate. Options are 'rf' for Random Forest, 'xgb' for XGBoost, 'lasso' for Lasso 
                      or 'all' to validate both models. Default is 'all'.
         Raises:
-        ValueError: If the model parameter is not 'rf', 'xgb', or 'all'.
+        ValueError: If the model parameter is not 'rf', 'xgb', 'lasso', or 'all'.
         This method prints the R2 score for the specified model(s) on the validation dataset.
         If the specified model is not trained, it will be trained before validation.
         """
@@ -418,15 +456,16 @@ class Workflow():
             if not hasattr(self, 'lasso'):
                 self.Lasso_train()
             predictions = self.lasso.predict(self.Xvalid)
-            lasso_r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for Lasso model (Validation data): {lasso_r2:.3f}')
-            
+            r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for Lasso model (Validation data): {r2:.3f}')
+            print(f'Time taken to train XGB model: {datetime.now() - start_time}')
+
             start_time = datetime.now()
             if not hasattr(self, 'rf_old'):
                 self.RF_train(old_model=True)
             predictions = self.rf_old.predict(self.Xvalid)
-            old_rf_r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for old RF model (Validation data): {old_rf_r2:.3f}')
+            r2 = r2_score(self.yvalid, predictions)
+            print(f'R2 Score for old RF model (Validation data): {r2:.3f}')
             print(f'Time taken to train old RF model: {datetime.now() - start_time}')
 
         else:
@@ -436,9 +475,9 @@ class Workflow():
         """
         Plots the model predictions on a scatter plot.
         Parameters:
-        model (str): The model to use for predictions. Options are 'rf' for Random Forest and 'xgb' for XGBoost. Default is 'rf'.
+        model (str): The model to use for predictions. Options are 'rf' for Random Forest, 'xgb' for XGBoost and 'lasso' for Lasso. Default is 'rf'.
         This function checks if the predictions for the specified model are already computed. 
-        If not, it computes the predictions by calling the appropriate method (RF_predictions or XGB_predictions).
+        If not, it computes the predictions by calling the appropriate method (RF_predictions, XGB_predictions or Lasso_predictions).
         It then creates a scatter plot of the predictions with longitude and latitude on the x and y axes, respectively.
         The color of the points represents the predicted recharge rate.
         The plot includes:
