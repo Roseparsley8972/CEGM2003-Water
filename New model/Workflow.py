@@ -161,6 +161,8 @@ class Workflow():
             self.rf.fit(self.Xtrain, self.ytrain)
             print(f'Training Score Random Forest: {self.rf.score(self.Xtrain, self.ytrain):.3f}')
 
+            if oob_score:
+                 print(f'OOB Score Random Forest: {self.rf.oob_score_:.3f}')
         if old_model:
             trees = 250
             max_splits = 18
@@ -669,6 +671,13 @@ class Workflow():
         plt.title('Difference between Random Forest and XGBoost Predictions')
         plt.show()
     def scatterplot(self, model='rf'):    
+        """
+        Creates a scatter plot of observed vs. predicted values for the specified model.
+        
+        Parameters:
+        model (str): The model to use for predictions. Options are 'rf' (Random Forest), 
+                    'xgb' (XGBoost), 'lasso' (Lasso Regression), or 'old_rf' (older Random Forest model).
+        """
         
         if model == 'rf':
             if not hasattr(self, 'rf'):
@@ -683,6 +692,13 @@ class Workflow():
             if not hasattr(self, 'lasso'):
                 self.Lasso_train()
             holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.lasso.predict(self.Xtest)})
+        
+        elif model == 'old_rf':
+            if not hasattr(self, 'rf_old'):
+                self.RF_train(old_model=True)
+            holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.rf_old.predict(self.Xtest)})
+
+
 
         plt.scatter(holdout['obs'], holdout['preds'], s=0.1)
         plt.grid()
@@ -713,6 +729,7 @@ if __name__ == "__main__":
     # workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
     # workflow.validate_models()
     # workflow.test_models()
-    workflow.scatterplot(model='xgb')
+    # workflow.scatterplot(model='old_rf')
+    workflow.RF_train(oob_score=True,bootstrap=True)
 
 
