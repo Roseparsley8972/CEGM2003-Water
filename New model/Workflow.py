@@ -668,6 +668,43 @@ class Workflow():
         ax.set_aspect('equal', 'box')
         plt.title('Difference between Random Forest and XGBoost Predictions')
         plt.show()
+    def scatterplot(self, model='rf'):    
+        
+        if model == 'rf':
+            if not hasattr(self, 'rf'):
+                self.RF_train()
+            holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.rf.predict(self.Xtest)})
+        
+        elif model == 'xgb':
+            if not hasattr(self, 'xgb'):
+                self.XGB_train()
+            holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.xgb.predict(self.Xtest)})
+        elif model == 'lasso':
+            if not hasattr(self, 'lasso'):
+                self.Lasso_train()
+            holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.lasso.predict(self.Xtest)})
+
+        plt.scatter(holdout['obs'], holdout['preds'], s=0.1)
+        plt.grid()
+        plt.xscale('log')
+        plt.yscale('log')
+        plt.title(f'{model.upper()} - Recharge rate')
+
+        # Plot the line with the same limits
+        plt.plot([1e-3, 1e4], [1e-3, 1e4], color='red', linestyle='--')
+
+        # Set the same limits for both axes
+        plt.xlim(1e-3, 1e4)
+        plt.ylim(1e-3, 1e4)
+
+        plt.xlabel('Observed Values [mm/y]')
+        plt.ylabel('Predicted Values [mm/y]')
+        plt.text(0.95, 0.05, f'R² = {round(r2_score(holdout["obs"], holdout["preds"]), 3)}\nRMSE = {round(np.sqrt(np.mean((holdout["preds"] - holdout["obs"])**2)), 3)}', 
+                fontsize=12, ha='right', va='bottom', transform=plt.gca().transAxes,
+                bbox=dict(facecolor='yellow', alpha=0.5))
+        
+        plt.show()
+
 
 if __name__ == "__main__":
     workflow = Workflow()
@@ -675,7 +712,7 @@ if __name__ == "__main__":
     # workflow = Workflow(test_data=True)
     # workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
     # workflow.validate_models()
-    workflow.test_models()
-    # workflow.plot_parameters()
+    # workflow.test_models()
+    workflow.scatterplot(model='xgb')
 
 
