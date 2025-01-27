@@ -34,7 +34,7 @@ hyperparameter_grid = {
     'min_samples_leaf': [2, 3, 4],
     'min_samples_split': [2, 3, 4],
     'oob_score': [True],
-    'criterion': ['mse', 'mae'],
+    'criterion': ['friedman_mse'],
     'max_leaf_nodes': [10, 20, 30],
     'min_impurity_decrease': [0.0, 0.1]
 }
