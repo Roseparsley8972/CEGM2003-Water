@@ -8,13 +8,32 @@ Important folders:
 
     The original Random Forest for groundwater estimation, as described in Lee et al. (2024) 
 
-* New Model
+- New Model
 
-The folder contains all the different approaches we tried for estimating groundwater in Australia:
-    
-        * Improved_RF_code contains the optimization of the original Random Forest, with respect to the hyperparameters and the computational time
+  The folder contains all the different approaches we tried for estimating groundwater in Australia:
 
-        * XgBoost is our alternative to the Random Forest, together with the code for optimizing its hyperparameters
+  - **Improved_RF_code**
+    - Contains the optimization of the original Random Forest
+    - Includes optimization of hyperparameters and computational time
 
-        * CNN_from_R is contains a deep-neural network approach for the estimation of groundwater recharge in Australia based on Kirkwood et al (2022). The network contains two branches, one that implements a set of convolutions for processing raster images containing information for geological values and a fully connected one which receives the same features as the RF and XgBoost together with their location coordinates. The images where created by us using the raster.ipynb in *rastering_code*. The code creates multiple images of each target variable the user defines and stores them in *images_for_CNN*. The ones are going to be fed in the CNN_final.ipynb have to be stored in the *aux_inputs* folder inside CNN_from_R. Then, CNN_final.ipynb extracts the images and creates 32x32 images centered in the the site of each measurement. These new centered images serve as the input of the convolutional branch. 
-        The network is designed in a way that multiple image channels can be implemented in the convolutional branch. It takes 30 min to around an hour, given the number of channels, the epochs and the batch size, to be trained in a GPU.   
+  - **XgBoost**
+    - Our alternative to the Random Forest
+    - Includes code for optimizing its hyperparameters
+
+  - **CNN_from_R**
+    - Contains a deep-neural network approach for estimating groundwater recharge in Australia based on Kirkwood et al. (2022)
+    - The network contains two branches:
+      - **Convolutional branch**: Processes raster images containing information for geological values
+      - **Fully connected branch**: Receives the same features as the RF and XgBoost along with location coordinates
+    - **Key Details**:
+      - Images are created using `raster.ipynb` in the `rastering_code` folder
+      - These images are stored in the `images_for_CNN` folder
+      - To feed images into `CNN_final.ipynb`, they must be moved to the `aux_inputs` folder inside `CNN_from_R`
+      - `CNN_final.ipynb` extracts the images and creates **32x32 images** centered at each measurement site
+      - These centered images serve as the input for the convolutional branch
+      - The network supports multiple image channels in the convolutional branch
+      - Training time varies (30 minutes to 1 hour), depending on:
+        - Number of channels
+        - Epochs
+        - Batch size
+      - Requires a GPU for efficient training
