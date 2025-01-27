@@ -697,6 +697,8 @@ class Workflow():
             if not hasattr(self, 'rf_old'):
                 self.RF_train(old_model=True)
             holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.rf_old.predict(self.Xtest)})
+        else:
+            raise ValueError("Model should be 'rf', 'xgb', 'lasso', 'old_rf'")
 
 
 
@@ -723,13 +725,23 @@ class Workflow():
 
 
 if __name__ == "__main__":
+    # Instantiate the Workflow class
     workflow = Workflow()
-    # workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
-    # workflow = Workflow(test_data=True)
-    # workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
-    # workflow.validate_models()
-    # workflow.test_models()
-    # workflow.scatterplot(model='old_rf')
+    # Plot the training parameters, focusing specifically on the recharge rate, using the training dataset.
+    workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
+
+    # Validate the models (Random Forest, XGBoost, and Lasso) on the validation dataset.
+    # This method checks the overall performance of the models and prints the R² scores.
+    workflow.validate_models()  
+
+    # Test the models (Random Forest, XGBoost, and Lasso) on the test dataset.
+    # This evaluates how well the models perform on unseen data and prints the R² scores for the test dataset.
+    workflow.test_models()
+
+    # Generate a scatter plot comparing observed values against predicted values, change input for desired model
+    workflow.scatterplot(model='xgb')
+
+    # Train the Random Forest model with the updated parameters, enabling out-of-bag scoring and bootstrap sampling.
     workflow.RF_train(oob_score=True,bootstrap=True)
 
 
