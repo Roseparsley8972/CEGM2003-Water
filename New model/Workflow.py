@@ -14,6 +14,7 @@ from sklearn.model_selection import HalvingGridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 from sklearn.linear_model import Lasso
+from matplotlib.colors import LogNorm
 
 
 
@@ -723,25 +724,60 @@ class Workflow():
         
         plt.show()
 
+    def logplot(self):  
+
+        loc_features = ['lat', 'lon', 'Rain mm/y', 'rainfall_seasonality', 
+                'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 
+                'ndvi_avg', 'clay_perc', 'soil_class']
+        target_var = "Recharge RC 50% mm/y"
+
+        X = self.df[loc_features]
+        y = self.df[target_var]
+        plt.figure(figsize=(10, 5))
+
+        # Determine the common color range
+        vmin = max(y.min(), 0.01)
+        vmax = y.max()
+
+        # Scatter plot
+        sc = plt.scatter(X.lon, X.lat, c=y, s=0.5, cmap='viridis', norm=LogNorm(vmin=vmin, vmax=vmax))
+
+        # Set titles and labels
+        plt.title('Recharge RC 50% distribution')
+        plt.xlabel('Lon [°E]')
+        plt.ylabel('Lat [°N]')
+
+        # Add a colorbar
+        cbar = plt.colorbar(sc, orientation='vertical', fraction=0.02, pad=0.1)
+        cbar.set_label('Recharge Rate 50% mm/y')
+
+        plt.grid(True, linestyle='--', linewidth=0.5, alpha=0.7)
+
+        # Show plot
+        plt.tight_layout()
+        plt.show()
 
 if __name__ == "__main__":
     # Instantiate the Workflow class
     workflow = Workflow()
     # Plot the training parameters, focusing specifically on the recharge rate, using the training dataset.
-    workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
+    # workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
 
     # Validate the models (Random Forest, XGBoost, and Lasso) on the validation dataset.
     # This method checks the overall performance of the models and prints the R² scores.
-    workflow.validate_models()  
+    # workflow.validate_models()  
 
     # Test the models (Random Forest, XGBoost, and Lasso) on the test dataset.
     # This evaluates how well the models perform on unseen data and prints the R² scores for the test dataset.
-    workflow.test_models()
+    # workflow.test_models()
 
     # Generate a scatter plot comparing observed values against predicted values, change input for desired model
-    workflow.scatterplot(model='xgb')
+    # workflow.scatterplot(model='xgb')
 
     # Train the Random Forest model with the updated parameters, enabling out-of-bag scoring and bootstrap sampling.
-    workflow.RF_train(oob_score=True,bootstrap=True)
+    # workflow.RF_train(oob_score=True,bootstrap=True)
+
+    workflow.logplot()
+
 
 
