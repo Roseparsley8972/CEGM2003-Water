@@ -10,7 +10,7 @@ Important folders:
 
 * New Model
 
-    The folder contains all the different approaches we tried for estimating groundwater in Australia:
+The folder contains all the different approaches we tried for estimating groundwater in Australia:
     
         * Improved_RF_code contains the optimization of the original Random Forest, with respect to the hyperparameters and the computational time
 
