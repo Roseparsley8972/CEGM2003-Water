@@ -90,7 +90,7 @@ class Workflow():
     """
     def __init__(self, k_num=10, y_var='Recharge RC 50% mm/y', y_predict='R50', aus_file='Australia_grid_0p05_data.csv', seed=42):
         self.DataLocation = os.path.join(os.path.dirname(__file__), 'data')
-        self.trainparams = ['Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
+        self.trainparams = ['lon','lat','Rain mm/y', 'rainfall_seasonality', 'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 'ndvi_avg', 'clay_perc', 'soil_class']
         self.aus_file = aus_file
         self.aus_X = pd.read_csv(os.path.join(self.DataLocation, aus_file))[self.trainparams]
         self.seed = seed
@@ -567,10 +567,22 @@ class Workflow():
             data = self.lasso_y_pred_aus
             title = 'Lasso Predictions'
 
+        import matplotlib.colors as mcolors
         fig, ax = plt.subplots(figsize=(8, 5))
-        sc = ax.scatter(data['lon'], data['lat'], s=0.1, c=data[self.y_predict], cmap='Blues')#, vmax=1000)
+        sc = ax.scatter(
+            data['lon'],
+            data['lat'],
+            s=0.1,
+            c=data[self.y_predict],
+            cmap='Blues',
+            norm=mcolors.LogNorm(vmin=1, vmax=1000)
+        )
         fig.colorbar(sc, ax=ax, label='Recharge rate (mm/yr)')
-        ax.set(xlabel=r'Longitude ($\degree$E)', ylabel='Latitude ($\degree$N)', aspect='equal')
+        ax.set(
+            xlabel=r'Longitude ($\degree$E)',
+            ylabel='Latitude ($\degree$N)',
+            aspect='equal'
+        )
         plt.title(title)
         plt.show()
 
