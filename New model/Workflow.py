@@ -351,10 +351,22 @@ class Workflow():
             data = self.lasso_y_pred_aus
             title = 'Lasso Predictions'
 
+        import matplotlib.colors as mcolors
         fig, ax = plt.subplots(figsize=(8, 5))
-        sc = ax.scatter(data['lon'], data['lat'], s=0.1, c=data[self.y_predict], cmap='Blues')#, vmax=1000)
+        sc = ax.scatter(
+            data['lon'],
+            data['lat'],
+            s=0.1,
+            c=data[self.y_predict],
+            cmap='Blues',
+            norm=mcolors.LogNorm(vmin=1, vmax=1000)
+        )
         fig.colorbar(sc, ax=ax, label='Recharge rate (mm/yr)')
-        ax.set(xlabel=r'Longitude ($\degree$E)', ylabel='Latitude ($\degree$N)', aspect='equal')
+        ax.set(
+            xlabel=r'Longitude ($\degree$E)',
+            ylabel='Latitude ($\degree$N)',
+            aspect='equal'
+        )
         plt.title(title)
         plt.show()
 
@@ -458,10 +470,8 @@ class Workflow():
 
 if __name__ == "__main__":
     workflow = Workflow()
-    workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
-    workflow = Workflow(test_data=True)
-    workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
-    workflow.validate_models()
+    workflow.XGB_predictions()
+    workflow.plot_model_predictions(model='xgb')
     # workflow.plot_parameters()
 
 
