@@ -16,13 +16,14 @@ Important folders:
     - This code contains a summary of the Lasso, improved RF and XGBoost models. Different functions can be called to train and test the models on the same datasets, as well as to plot y-y plots and predictions of recharge rate in Australia. It combines the main aspects of all the work done for all three models, including those found in the "Improved_RF_code" folder and the "XGBoost" folder.
     - Further details can be found in the file "Workflow.md"
 
-  - **Improved_RF_code**
-    - Contains the optimization of the original Random Forest
-    - Includes optimization of hyperparameters and computational time
+  - **Hyperparameter_optimization** 
+    - Contains code to find optimal hyperparameters used in Workflow for the 3 different models  
 
+  - **Improved_RF_code**
+    - Contains the original codes used before the Workflow and Hyperparameter_optimization code was made for the optimization of the original Random forest
+    
   - **XgBoost**
-    - Our alternative to the Random Forest
-    - Includes code for optimizing its hyperparameters
+    - Contains the original codes used before the Workflow and Hyperparameter_optimization code was made for the testing and optimization of XgBoost. 
 
   - **CNN_from_R**
     - Contains a deep-neural network approach for estimating groundwater recharge in Australia based on Kirkwood et al. (2022)
@@ -36,7 +37,6 @@ Important folders:
 
   - **Data**: contains the training, validation and test datasets, the original unsplit dataset (dat07_u.csv) and the file with unseen data used for predictions(Australia_grid_0p05_data_with_rain.csv). It also contains the recharge rate predictions given by different models.
 
-  - **Hyperparameter** WHAT IS THIS???
 
   - **Splitting data**
     - code used to split the data into train, validation and test
