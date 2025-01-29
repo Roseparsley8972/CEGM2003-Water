@@ -135,7 +135,7 @@ class Workflow():
 
         return self.Xtrain, self.ytrain, self.Xvalid, self.yvalid, self.Xtest, self.ytest
 
-    def RF_train(self, n_estimators=90, max_depth=50, max_features='log2', min_samples_leaf=6, min_samples_split=4, 
+    def RF_train(self, n_estimators=70, max_depth=60, max_features='log2', min_samples_leaf=6, min_samples_split=4, 
                 bootstrap=False, oob_score=False, old_model=False):
         """
         Trains a Random Forest Regressor model using the provided training data.
@@ -325,7 +325,7 @@ class Workflow():
         self.xgb_y_pred_valid.to_csv(f'model_validation_predictions_errors_XGB_{datetime.now().date()}.csv', index=False)
         self.xgb_y_pred_aus.to_csv(f'model_predictions_aus_XGB_{datetime.now().date()}.csv', index=False)
  
-    def Lasso_train(self, alpha=0.01, max_iter=1000, tol=0.001):
+    def Lasso_train(self, alpha=0.01, max_iter=1000, tol=0.0001):
         """
         1. Initializes a Lasso regression model with the given alpha and random seed.
         2. Fits the model to the training data (`Xtrain` and `ytrain`).
@@ -777,19 +777,18 @@ if __name__ == "__main__":
 
     # Validate the models (Random Forest, XGBoost, and Lasso) on the validation dataset.
     # This method checks the overall performance of the models and prints the R² scores.
-    # workflow.validate_models()  
+    # workflow.validate_models('all')  
 
     # Test the models (Random Forest, XGBoost, and Lasso) on the test dataset.
     # This evaluates how well the models perform on unseen data and prints the R² scores for the test dataset.
-    # workflow.test_models()
+    # workflow.test_models('all')
 
     # Generate a scatter plot comparing observed values against predicted values, change input for desired model
-    # workflow.scatterplot(model='xgb')
-
+    workflow.scatterplot(model='rf')
     # Train the Random Forest model with the updated parameters, enabling out-of-bag scoring and bootstrap sampling.
     # workflow.RF_train(oob_score=True,bootstrap=True)
 
-    workflow.logplot()
+    # workflow.logplot()
 
 
 
