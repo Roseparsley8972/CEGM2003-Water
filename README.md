@@ -45,4 +45,11 @@ Important folders:
 
   - **Rain**
     - contains the code used to fix the original dataset, which contained incorrent rainfall data.
+
+  - **Requirements_workflow.txt**
+    - contains the packages and the versions that were used to run and produce the results of Workflow.py
+
+  - **Requirements_CNN.txt**
+    - contains the packages and the versions that were used to run and produce the results of CNN_final.ipynb
+
   
