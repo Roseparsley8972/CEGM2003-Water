@@ -14,6 +14,7 @@ from sklearn.model_selection import HalvingGridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 from sklearn.linear_model import Lasso
+from matplotlib.colors import LogNorm
 
 
 
@@ -134,19 +135,22 @@ class Workflow():
 
         return self.Xtrain, self.ytrain, self.Xvalid, self.yvalid, self.Xtest, self.ytest
 
-    def RF_train(self, n_estimators=50, max_depth=40, max_features='log2', min_samples_leaf=8, min_samples_split=8, bootstrap=False, oob_score=False, old_model=False):
+    def RF_train(self, n_estimators=70, max_depth=60, max_features='log2', min_samples_leaf=6, min_samples_split=4, 
+                bootstrap=False, oob_score=False, old_model=False):
         """
         Trains a Random Forest Regressor model using the provided training data.
+        
         Parameters:
-        n_estimators (int): The number of trees in the forest. Default is 50.
-        max_depth (int): The maximum depth of the tree. Default is 40.
+        n_estimators (int): The number of trees in the forest. Default is 90.
+        max_depth (int): The maximum depth of the tree. Default is 50.
         max_features (str): The number of features to consider when looking for the best split. Default is 'log2'.
-        min_samples_leaf (int): The minimum number of samples required to be at a leaf node. Default is 8.
-        min_samples_split (int): The minimum number of samples required to split an internal node. Default is 8.
+        min_samples_leaf (int): The minimum number of samples required to be at a leaf node. Default is 6.
+        min_samples_split (int): The minimum number of samples required to split an internal node. Default is 4.
         bootstrap (bool): Whether bootstrap samples are used when building trees. Default is False.
         oob_score (bool): Whether to use out-of-bag samples to estimate the generalization accuracy. Default is False.
         Returns:
         None
+        
         Prints:
         Training progress and the training score of the Random Forest model.
         """
@@ -158,6 +162,8 @@ class Workflow():
             self.rf.fit(self.Xtrain, self.ytrain)
             print(f'Training Score Random Forest: {self.rf.score(self.Xtrain, self.ytrain):.3f}')
 
+            if oob_score:
+                 print(f'OOB Score Random Forest: {self.rf.oob_score_:.3f}')
         if old_model:
             trees = 250
             max_splits = 18
@@ -235,19 +241,20 @@ class Workflow():
         self.rf_y_pred_valid.to_csv(f'model_validation_predictions_errors_RF_{datetime.now().date()}.csv', index=False)
         self.rf_y_pred_aus.to_csv(f'model_predictions_aus_RF_{datetime.now().date()}.csv', index=False)
 
-    def XGB_train(self, n_estimators=350, max_depth=12, learning_rate=0.01, min_child_weight=5, subsample=0.7, colsample_bytree=0.6, gamma=0.2, reg_alpha=1, reg_lambda=2):
+    def XGB_train(self, n_estimators=400, max_depth=12, learning_rate=0.01, min_child_weight=5, subsample=0.6,
+                colsample_bytree=0.6, gamma=0.2, reg_alpha=0, reg_lambda=2.5):
         """
         Trains an XGBoost regressor model with the given hyperparameters.
         Parameters:
-        n_estimators (int): Number of boosting rounds. Default is 350.
+        n_estimators (int): Number of boosting rounds. Default is 400.
         max_depth (int): Maximum depth of a tree. Default is 12.
         learning_rate (float): Boosting learning rate. Default is 0.01.
         min_child_weight (int): Minimum sum of instance weight (hessian) needed in a child. Default is 5.
-        subsample (float): Subsample ratio of the training instances. Default is 0.7.
+        subsample (float): Subsample ratio of the training instances. Default is 0.6.
         colsample_bytree (float): Subsample ratio of columns when constructing each tree. Default is 0.6.
         gamma (float): Minimum loss reduction required to make a further partition on a leaf node of the tree. Default is 0.2.
-        reg_alpha (float): L1 regularization term on weights. Default is 1.
-        reg_lambda (float): L2 regularization term on weights. Default is 2.
+        reg_alpha (float): L1 regularization term on weights. Default is 0.
+        reg_lambda (float): L2 regularization term on weights. Default is 2.5.
         Returns:
         None
         """
@@ -318,13 +325,50 @@ class Workflow():
         self.xgb_y_pred_valid.to_csv(f'model_validation_predictions_errors_XGB_{datetime.now().date()}.csv', index=False)
         self.xgb_y_pred_aus.to_csv(f'model_predictions_aus_XGB_{datetime.now().date()}.csv', index=False)
  
-    def Lasso_train(self, alpha = 0.1):
+    def Lasso_train(self, alpha=0.01, max_iter=1000, tol=0.0001):
+        """
+        1. Initializes a Lasso regression model with the given alpha and random seed.
+        2. Fits the model to the training data (`Xtrain` and `ytrain`).
+        3. Prints the training score (R2 score) of the model on the training dataset.
+        action: 
+        Trains a Lasso regression model with the given hyperparameter.
+        Parameters:
+        alpha (float): The regularization strength. Default is 0.1.
+                    A smaller value indicates weaker regularization.
+        returns: 
+        training score lasso
+            
+        """
         print("Training Lasso")
-        self.lasso = Lasso(alpha=alpha, random_state=self.random_num)
+        self.lasso = Lasso(alpha=alpha, max_iter=max_iter, tol=tol, random_state=self.random_num)
         self.lasso.fit(self.Xtrain, self.ytrain)
         print(f'Training Score Lasso: {self.lasso.score(self.Xtrain, self.ytrain):.3f}')
 
     def Lasso_cross_validation(self):
+
+        """
+        Performs cross-validation using the Lasso regression model.
+        This method:
+        1. Checks if the Lasso model has been trained. If not, it trains the model first.
+        2. Performs k-fold cross-validation on the training dataset.
+        3. Evaluates and prints the mean R2 score, RMSE, and MAE across all folds.
+        Parameters:
+        None
+        Attributes:
+            lasso: The trained Lasso regression model.
+            Xtrain: The training data features.
+            ytrain: The training data target values.
+            k_num: The number of folds for cross-validation.
+        Prints:
+            - Number of folds used in cross-validation.
+            - Mean R2 score from cross-validation.
+            - Mean RMSE from cross-validation.
+            - Mean MAE from cross-validation.
+        """
+        if not hasattr(self, 'lasso'):
+            self.Lasso_train()
+
+
         if not hasattr(self, 'lasso'):
             self.Lasso_train()
 
@@ -357,10 +401,10 @@ class Workflow():
         """
         Validate the performance of the trained models on the validation dataset.
         Parameters:
-        model (str): The model to validate. Options are 'rf' for Random Forest, 'xgb' for XGBoost, 
+        model (str): The model to validate. Options are 'rf' for Random Forest, 'xgb' for XGBoost, 'lasso' for Lasso 
                      or 'all' to validate both models. Default is 'all'.
         Raises:
-        ValueError: If the model parameter is not 'rf', 'xgb', or 'all'.
+        ValueError: If the model parameter is not 'rf', 'xgb', 'lasso', or 'all'.
         This method prints the R2 score for the specified model(s) on the validation dataset.
         If the specified model is not trained, it will be trained before validation.
         """
@@ -370,26 +414,26 @@ class Workflow():
                 self.RF_train()
             predictions = self.rf.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for RF model: {r2:.3f}')
+            print(f'R2 Score for RF model (Validation data): {r2:.3f}')
         elif model == 'xgb':
             if not hasattr(self, 'xgb'):
                 self.XGB_train()
             predictions = self.xgb.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for XGB model: {r2:.3f}')
+            print(f'R2 Score for XGB model (Validation data): {r2:.3f}')
         elif model == 'lasso':
             if not hasattr(self, 'lasso'):
                 self.Lasso_train()
             predictions = self.lasso.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for Lasso model: {r2:.3f}')
+            print(f'R2 Score for Lasso model (Validation data): {r2:.3f}')
 
         elif model == 'old_rf':
             if not hasattr(self, 'rf_old'):
                 self.RF_train(old_model=True)
             predictions = self.rf_old.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for old RF model: {r2:.3f}')   
+            print(f'R2 Score for old RF model (Validation data): {r2:.3f}')   
 
         elif model == 'all':
             start_time = datetime.now()
@@ -397,7 +441,7 @@ class Workflow():
                 self.RF_train()
             rf_predictions = self.rf.predict(self.Xvalid)
             rf_r2 = r2_score(self.yvalid, rf_predictions)
-            print(f'R2 Score for RF model: {rf_r2:.3f}')
+            print(f'R2 Score for RF model (Validation data): {rf_r2:.3f}')
             print(f'Time taken to train RF model: {datetime.now() - start_time}')
 
             start_time = datetime.now()
@@ -405,13 +449,13 @@ class Workflow():
                 self.XGB_train()
             xgb_predictions = self.xgb.predict(self.Xvalid)
             xgb_r2 = r2_score(self.yvalid, xgb_predictions)
-            print(f'R2 Score for XGB model: {xgb_r2:.3f}')
+            print(f'R2 Score for XGB model (Validation data): {xgb_r2:.3f}')
 
             if not hasattr(self, 'lasso'):
                 self.Lasso_train()
             predictions = self.lasso.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for Lasso model: {r2:.3f}')
+            print(f'R2 Score for Lasso model (Validation data): {r2:.3f}')
             print(f'Time taken to train XGB model: {datetime.now() - start_time}')
 
             start_time = datetime.now()
@@ -419,19 +463,84 @@ class Workflow():
                 self.RF_train(old_model=True)
             predictions = self.rf_old.predict(self.Xvalid)
             r2 = r2_score(self.yvalid, predictions)
-            print(f'R2 Score for old RF model: {r2:.3f}')
+            print(f'R2 Score for old RF model (Validation data): {r2:.3f}')
             print(f'Time taken to train old RF model: {datetime.now() - start_time}')
 
         else:
             raise ValueError("Model should be 'rf', 'xgb', 'lasso, 'old_rd' or 'all'")
 
+    def test_models(self, model='all'):
+        """
+        Validate the performance of the trained models on the test dataset.
+        Parameters:
+        model (str): The model to validate. Options are 'rf' for Random Forest, 'xgb' for XGBoost, 'lasso' for Lasso 
+                    or 'all' to validate both models. Default is 'all'.
+        Raises:
+        ValueError: If the model parameter is not 'rf', 'xgb', 'lasso', or 'all'.
+        This method prints the R2 score for the specified model(s) on the test dataset.
+        If the specified model is not trained, it will be trained before validation.
+        """
+        if model == 'rf':
+            if not hasattr(self, 'rf'):
+                self.RF_train()
+            predictions = self.rf.predict(self.Xtest)
+            r2 = r2_score(self.ytest, predictions)
+            print(f'R2 Score for RF model (Test data): {r2:.3f}')
+        elif model == 'xgb':
+            if not hasattr(self, 'xgb'):
+                self.XGB_train()
+            predictions = self.xgb.predict(self.Xtest)
+            r2 = r2_score(self.ytest, predictions)
+            print(f'R2 Score for XGB model (Test data): {r2:.3f}')
+        elif model == 'lasso':
+            if not hasattr(self, 'lasso'):
+                self.Lasso_train()
+            predictions = self.lasso.predict(self.Xtest)
+            r2 = r2_score(self.ytest, predictions)
+            print(f'R2 Score for Lasso model (Test data): {r2:.3f}')
+        elif model == 'old_rf':
+            if not hasattr(self, 'rf_old'):
+                self.RF_train(old_model=True)
+            predictions = self.rf_old.predict(self.Xtest)
+            r2 = r2_score(self.ytest, predictions)
+            print(f'R2 Score for old RF model (Test data): {r2:.3f}')   
+        elif model == 'all':
+            start_time = datetime.now()
+            if not hasattr(self, 'rf'):
+                self.RF_train()
+            rf_predictions = self.rf.predict(self.Xtest)
+            rf_r2 = r2_score(self.ytest, rf_predictions)
+            print(f'R2 Score for RF model (Test data): {rf_r2:.3f}')
+            print(f'Time taken to train RF model: {datetime.now() - start_time}')
+            start_time = datetime.now()
+            if not hasattr(self, 'xgb'):
+                self.XGB_train()
+            xgb_predictions = self.xgb.predict(self.Xtest)
+            xgb_r2 = r2_score(self.ytest, xgb_predictions)
+            print(f'R2 Score for XGB model (Test data): {xgb_r2:.3f}')
+            if not hasattr(self, 'lasso'):
+                self.Lasso_train()
+            lasso_predictions = self.lasso.predict(self.Xtest)
+            lasso_r2 = r2_score(self.ytest, lasso_predictions)
+            print(f'R2 Score for Lasso model (Test data): {lasso_r2:.3f}')
+            print(f'Time taken to train XGB model: {datetime.now() - start_time}')
+            start_time = datetime.now()
+            if not hasattr(self, 'rf_old'):
+                self.RF_train(old_model=True)
+            old_rf_predictions = self.rf_old.predict(self.Xtest)
+            old_rf_r2 = r2_score(self.ytest, old_rf_predictions)
+            print(f'R2 Score for old RF model (Test data): {old_rf_r2:.3f}')
+            print(f'Time taken to train old RF model: {datetime.now() - start_time}')
+        else:
+            raise ValueError("Model should be 'rf', 'xgb', 'lasso', 'old_rf' or 'all'")
+
     def plot_model_predictions(self, model='rf'):
         """
         Plots the model predictions on a scatter plot.
         Parameters:
-        model (str): The model to use for predictions. Options are 'rf' for Random Forest and 'xgb' for XGBoost. Default is 'rf'.
+        model (str): The model to use for predictions. Options are 'rf' for Random Forest, 'xgb' for XGBoost and 'lasso' for Lasso. Default is 'rf'.
         This function checks if the predictions for the specified model are already computed. 
-        If not, it computes the predictions by calling the appropriate method (RF_predictions or XGB_predictions).
+        If not, it computes the predictions by calling the appropriate method (RF_predictions, XGB_predictions or Lasso_predictions).
         It then creates a scatter plot of the predictions with longitude and latitude on the x and y axes, respectively.
         The color of the points represents the predicted recharge rate.
         The plot includes:
@@ -458,10 +567,22 @@ class Workflow():
             data = self.lasso_y_pred_aus
             title = 'Lasso Predictions'
 
+        import matplotlib.colors as mcolors
         fig, ax = plt.subplots(figsize=(8, 5))
-        sc = ax.scatter(data['lon'], data['lat'], s=0.1, c=data[self.y_predict], cmap='Blues')#, vmax=1000)
+        sc = ax.scatter(
+            data['lon'],
+            data['lat'],
+            s=0.1,
+            c=data[self.y_predict],
+            cmap='Blues',
+            norm=mcolors.LogNorm(vmin=1, vmax=1000)
+        )
         fig.colorbar(sc, ax=ax, label='Recharge rate (mm/yr)')
-        ax.set(xlabel=r'Longitude ($\degree$E)', ylabel='Latitude ($\degree$N)', aspect='equal')
+        ax.set(
+            xlabel=r'Longitude ($\degree$E)',
+            ylabel='Latitude ($\degree$N)',
+            aspect='equal'
+        )
         plt.title(title)
         plt.show()
 
@@ -527,6 +648,7 @@ class Workflow():
             plt.show()
 
     def compare_model_predictions(self, models=['rf', 'xgb']):
+
         """
         Compare the predictions of the specified models on the validation dataset.
         Parameters:
@@ -562,13 +684,112 @@ class Workflow():
         ax.set_aspect('equal', 'box')
         plt.title('Difference between Random Forest and XGBoost Predictions')
         plt.show()
+    def scatterplot(self, model='rf'):    
+        """
+        Creates a scatter plot of observed vs. predicted values for the specified model.
+        
+        Parameters:
+        model (str): The model to use for predictions. Options are 'rf' (Random Forest), 
+                    'xgb' (XGBoost), 'lasso' (Lasso Regression), or 'old_rf' (older Random Forest model).
+        """
+        
+        if model == 'rf':
+            if not hasattr(self, 'rf'):
+                self.RF_train()
+            holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.rf.predict(self.Xtest)})
+        
+        elif model == 'xgb':
+            if not hasattr(self, 'xgb'):
+                self.XGB_train()
+            holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.xgb.predict(self.Xtest)})
+        elif model == 'lasso':
+            if not hasattr(self, 'lasso'):
+                self.Lasso_train()
+            holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.lasso.predict(self.Xtest)})
+        
+        elif model == 'old_rf':
+            if not hasattr(self, 'rf_old'):
+                self.RF_train(old_model=True)
+            holdout = pd.DataFrame({'obs': self.ytest, 'preds': self.rf_old.predict(self.Xtest)})
+        else:
+            raise ValueError("Model should be 'rf', 'xgb', 'lasso', 'old_rf'")
+
+
+
+        plt.scatter(holdout['obs'], holdout['preds'], s=0.1)
+        plt.grid()
+        plt.xscale('log')
+        plt.yscale('log')
+        plt.title(f'{model.upper()} - Recharge rate')
+
+        # Plot the line with the same limits
+        plt.plot([1e-3, 1e4], [1e-3, 1e4], color='red', linestyle='--')
+
+        # Set the same limits for both axes
+        plt.xlim(1e-3, 1e4)
+        plt.ylim(1e-3, 1e4)
+
+        plt.xlabel('Observed Values [mm/y]')
+        plt.ylabel('Predicted Values [mm/y]')
+        plt.text(0.95, 0.05, f'R² = {round(r2_score(holdout["obs"], holdout["preds"]), 3)}\nRMSE = {round(np.sqrt(np.mean((holdout["preds"] - holdout["obs"])**2)), 3)}', 
+                fontsize=12, ha='right', va='bottom', transform=plt.gca().transAxes,
+                bbox=dict(facecolor='yellow', alpha=0.5))
+        
+        plt.show()
+
+    def logplot(self):  
+
+        loc_features = ['lat', 'lon', 'Rain mm/y', 'rainfall_seasonality', 
+                'PET mm/y', 'elevation_mahd', 'distance_to_coast_km', 
+                'ndvi_avg', 'clay_perc', 'soil_class']
+        target_var = "Recharge RC 50% mm/y"
+
+        X = self.df[loc_features]
+        y = self.df[target_var]
+        # plt.figure(figsize=(10, 5))
+
+        # Determine the common color range
+        vmin = max(y.min(), 0.01)
+        vmax = y.max()
+
+        # Scatter plot
+        sc = plt.scatter(X.lon, X.lat, c=y, s=0.5, cmap='viridis', norm=LogNorm(vmin=vmin, vmax=vmax))
+
+        # Set titles and labels
+        plt.title('Recharge RC 50% distribution')
+        plt.xlabel('Lon [°E]')
+        plt.ylabel('Lat [°N]')
+
+        # Add a colorbar
+        cbar = plt.colorbar(sc, orientation='vertical', fraction=0.02, pad=0.1)
+        cbar.set_label('Recharge Rate 50% mm/y')
+
+        plt.grid(True, linestyle='--', linewidth=0.5, alpha=0.7)
+
+        # Show plot
+        plt.tight_layout()
+        plt.show()
 
 if __name__ == "__main__":
+    # Instantiate the Workflow class
     workflow = Workflow()
-    workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
-    workflow = Workflow(test_data=True)
-    workflow.RF_train(n_estimators=500, max_depth=25, max_features='log2', min_samples_leaf=3, oob_score=True, bootstrap=True)
-    workflow.validate_models()
-    # workflow.plot_parameters()
+    # Plot the training parameters, focusing specifically on the recharge rate, using the training dataset.
+    # workflow.plot_parameters(plot_type='training', plot_recharge_only=True)
+
+    # Validate the models (Random Forest, XGBoost, and Lasso) on the validation dataset.
+    # This method checks the overall performance of the models and prints the R² scores.
+    # workflow.validate_models('all')  
+
+    # Test the models (Random Forest, XGBoost, and Lasso) on the test dataset.
+    # This evaluates how well the models perform on unseen data and prints the R² scores for the test dataset.
+    # workflow.test_models('all')
+
+    # Generate a scatter plot comparing observed values against predicted values, change input for desired model
+    workflow.scatterplot(model='rf')
+    # Train the Random Forest model with the updated parameters, enabling out-of-bag scoring and bootstrap sampling.
+    # workflow.RF_train(oob_score=True,bootstrap=True)
+
+    # workflow.logplot()
+
 
 
