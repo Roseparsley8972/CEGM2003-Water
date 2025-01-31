@@ -648,6 +648,7 @@ class Workflow():
             plt.show()
 
     def compare_model_predictions(self, models=['rf', 'xgb']):
+
         """
         Compare the predictions of the specified models on the validation dataset.
         Parameters:
@@ -745,7 +746,7 @@ class Workflow():
 
         X = self.df[loc_features]
         y = self.df[target_var]
-        plt.figure(figsize=(10, 5))
+        # plt.figure(figsize=(10, 5))
 
         # Determine the common color range
         vmin = max(y.min(), 0.01)

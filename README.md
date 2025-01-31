@@ -20,7 +20,7 @@ Important folders:
     - Contains code to find optimal hyperparameters used in Workflow for the 3 different models  
 
   - **Improved_RF_code**
-    - Contains the original codes used before the Workflow and Hyperparameter_optimization code was made for the optimization of the original Random forest
+    - Contains the original codes used before the Workflow and Hyperparameter_optimization code was made for the optimization of the original Random forest, this code focused on improving the computation time of the randomforest model.
     
   - **XgBoost**
     - Contains the original codes used before the Workflow and Hyperparameter_optimization code was made for the testing and optimization of XgBoost.
