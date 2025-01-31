@@ -8,7 +8,7 @@ Important folders:
 
     The original code and datase for groundwater estimation Random Forest, as described in Lee et al. (2024) 
 
-- New Model
+* New Model
 
   The folder contains all the different approaches we tried for estimating groundwater in Australia:
 
@@ -46,10 +46,10 @@ Important folders:
   - **Rain**
     - contains the code used to fix the original dataset, which contained incorrent rainfall data.
 
-  - **Requirements_workflow.txt**
-    - contains the packages and the versions that were used to run and produce the results of Workflow.py
+* **Requirements_workflow.txt**
+  - contains the packages and the versions that were used to run and produce the results of Workflow.py
 
-  - **Requirements_CNN.txt**
-    - contains the packages and the versions that were used to run and produce the results of CNN_final.ipynb
+* **Requirements_CNN.txt**
+  - contains the packages and the versions that were used to run and produce the results of CNN_final.ipynb
 
   
