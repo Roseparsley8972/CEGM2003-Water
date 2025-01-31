@@ -23,7 +23,8 @@ Important folders:
     - Contains the original codes used before the Workflow and Hyperparameter_optimization code was made for the optimization of the original Random forest
     
   - **XgBoost**
-    - Contains the original codes used before the Workflow and Hyperparameter_optimization code was made for the testing and optimization of XgBoost. 
+    - Contains the original codes used before the Workflow and Hyperparameter_optimization code was made for the testing and optimization of XgBoost.
+    - in xgboost_hyperparameter_tuning.ipynb a more methodic approach to hyperparamter tuning was attempted, which did not lead to better results but is included for completion. This code also includes feature importance, which was not considered improtant enough to include in Workflow.py
 
   - **CNN_from_R**
     - Contains a deep-neural network approach for estimating groundwater recharge in Australia based on Kirkwood et al. (2022)
